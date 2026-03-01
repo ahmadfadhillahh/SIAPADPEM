@@ -24,6 +24,27 @@ body.page-enter-active{opacity:1;transform:translateY(0);transition:opacity .55s
 .nav-menu a:not(.btn)::after{content:"";position:absolute;left:0;bottom:-4px;width:0;height:2px;background:var(--secondary);transition:.25s}
 .nav-menu a:not(.btn):hover::after{width:100%}
 
+
+/* Hover cursor-like text highlight for clickable items */
+.nav-menu a,.read-more,.btn,.slider-btn,.pagination a{cursor:pointer}
+.nav-menu a,.read-more{
+  background-image:linear-gradient(120deg,color-mix(in srgb,var(--secondary) 30%, transparent),color-mix(in srgb,var(--primary) 20%, transparent));
+  background-size:0% 100%;
+  background-repeat:no-repeat;
+  background-position:0 100%;
+  transition:background-size .28s ease,color .28s ease,transform .2s ease;
+}
+.nav-menu a:hover,.nav-menu a:focus-visible,.read-more:hover,.read-more:focus-visible{
+  background-size:100% 100%;
+  transform:translateY(-1px);
+}
+.nav-menu a:active,.btn:active,.slider-btn:active,.pagination a:active{transform:scale(.98)}
+
+/* Soft pulse ring when cursor touches clickable components */
+@keyframes clickGlow{0%{box-shadow:0 0 0 0 color-mix(in srgb,var(--primary) 35%, transparent)}100%{box-shadow:0 0 0 10px transparent}}
+.btn:hover,.slider-btn:hover,.pagination a:hover{animation:clickGlow .55s ease-out}
+
+
 .btn{background:var(--primary);color:#fff;padding:10px 16px;border-radius:10px;display:inline-block;border:1px solid transparent;cursor:pointer;transition:.25s;font-weight:600}
 .btn:hover{transform:translateY(-1px);box-shadow:0 12px 24px rgba(37,99,235,.24)}
 .btn.outline{border-color:var(--primary);background:transparent;color:var(--primary)}
