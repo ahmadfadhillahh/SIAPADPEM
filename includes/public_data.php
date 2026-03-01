@@ -23,6 +23,15 @@ function getKegiatan(int $limit = 6, int $offset = 0): array
     return $stmt->fetchAll();
 }
 
+
+function getKegiatanById(int $id): ?array
+{
+    $stmt = getPDO()->prepare('SELECT * FROM publikasi_kegiatan WHERE id = ? LIMIT 1');
+    $stmt->execute([$id]);
+    $row = $stmt->fetch();
+    return $row ?: null;
+}
+
 function getKegiatanTotal(): int
 {
     return (int) getPDO()->query('SELECT COUNT(*) FROM publikasi_kegiatan')->fetchColumn();

@@ -46,7 +46,7 @@ $dokumen = getDokumen();
 </nav>
 
 <section id="beranda" class="hero">
-  <div class="container">
+  <div class="container reveal">
     <h1><?= e($heroTitle) ?></h1>
     <p><?= e($heroSubtitle) ?></p>
   </div>
@@ -54,47 +54,56 @@ $dokumen = getDokumen();
 
 <section id="profil" class="section">
   <div class="container">
-    <h2 class="section-title">Profil - Tupoksi</h2>
-    <div class="card"><p><?= nl2br(e($tupoksi)) ?></p></div>
+    <h2 class="section-title reveal">Profil - Tupoksi</h2>
+    <div class="card reveal"><p><?= nl2br(e($tupoksi)) ?></p></div>
 
-    <h2 class="section-title" style="margin-top:30px">Struktur Organisasi</h2>
-    <div class="slider">
-      <?php foreach ($struktur as $item): ?>
-        <article class="card person">
-          <img src="<?= e($item['foto_path'] ?: 'https://placehold.co/600x400?text=Foto') ?>" alt="<?= e($item['nama']) ?>">
-          <h3><?= e($item['nama']) ?></h3>
-          <p><?= e($item['jabatan']) ?></p>
-        </article>
-      <?php endforeach; ?>
-      <?php if (!$struktur): ?><p>Belum ada data struktur organisasi.</p><?php endif; ?>
+    <h2 class="section-title reveal" style="margin-top:30px">Struktur Organisasi</h2>
+    <div class="slider-shell reveal">
+      <div class="slider-controls">
+        <button type="button" class="slider-btn" data-slide="prev" aria-label="Sebelumnya">‹</button>
+        <button type="button" class="slider-btn" data-slide="next" aria-label="Selanjutnya">›</button>
+      </div>
+      <div class="slider" id="strukturSlider">
+        <?php foreach ($struktur as $item): ?>
+          <article class="card person">
+            <img src="<?= e($item['foto_path'] ?: 'https://placehold.co/600x400?text=Foto') ?>" alt="<?= e($item['nama']) ?>">
+            <h3><?= e($item['nama']) ?></h3>
+            <p><?= e($item['jabatan']) ?></p>
+          </article>
+        <?php endforeach; ?>
+        <?php if (!$struktur): ?><p>Belum ada data struktur organisasi.</p><?php endif; ?>
+      </div>
     </div>
   </div>
 </section>
 
 <section id="layanan" class="section" style="background:#f8fafc">
   <div class="container">
-    <h2 class="section-title">Layanan (SIMPERA) - Grafik Realisasi</h2>
-    <form class="filters" method="get">
+    <h2 class="section-title reveal">Layanan (SIMPERA) - Grafik Realisasi</h2>
+    <form class="filters reveal" method="get">
       <input type="hidden" name="page" value="1">
       <div><label>OPD</label><select name="opd"><option value="">Semua OPD</option><?php foreach ($opds as $opd): ?><option value="<?= e($opd) ?>" <?= $filters['opd']===$opd?'selected':'' ?>><?= e($opd) ?></option><?php endforeach; ?></select></div>
       <div><label>Bulan</label><select name="bulan"><option value="">Semua Bulan</option><?php for($i=1;$i<=12;$i++): ?><option value="<?= $i ?>" <?= (string)$filters['bulan']===(string)$i?'selected':'' ?>><?= $i ?></option><?php endfor; ?></select></div>
       <div><label>Triwulan</label><select name="triwulan"><option value="">Semua TW</option><?php foreach (['TW1','TW2','TW3','TW4'] as $tw): ?><option value="<?= $tw ?>" <?= $filters['triwulan']===$tw?'selected':'' ?>><?= $tw ?></option><?php endforeach; ?></select></div>
       <div style="align-self:end"><button class="btn" type="submit">Filter</button></div>
     </form>
-    <div class="card"><canvas id="chartLayanan" height="110"></canvas></div>
+    <div class="card reveal"><canvas id="chartLayanan" height="110"></canvas></div>
   </div>
 </section>
 
 <section id="publikasi" class="section">
   <div class="container">
-    <h2 class="section-title">Publikasi Kegiatan</h2>
+    <h2 class="section-title reveal">Publikasi Kegiatan</h2>
     <div class="grid grid-3">
       <?php foreach ($kegiatan as $item): ?>
-      <article class="card pub-card">
-        <img src="<?= e($item['gambar_path'] ?: 'https://placehold.co/600x400?text=Kegiatan') ?>" alt="<?= e($item['judul']) ?>">
-        <small><?= e(date('d M Y', strtotime($item['tanggal_publikasi']))) ?> • <?= e($item['penulis']) ?></small>
-        <h3><?= e($item['judul']) ?></h3>
-        <p><?= e($item['ringkasan']) ?></p>
+      <article class="card pub-card reveal">
+        <a href="kegiatan_detail.php?id=<?= (int) $item['id'] ?>">
+          <img src="<?= e($item['gambar_path'] ?: 'https://placehold.co/600x400?text=Kegiatan') ?>" alt="<?= e($item['judul']) ?>">
+          <small class="meta"><?= e(date('d M Y', strtotime($item['tanggal_publikasi']))) ?> • <?= e($item['penulis']) ?></small>
+          <h3><?= e($item['judul']) ?></h3>
+          <p><?= e($item['ringkasan']) ?></p>
+          <span class="read-more">Baca selengkapnya →</span>
+        </a>
       </article>
       <?php endforeach; ?>
     </div>
@@ -105,8 +114,8 @@ $dokumen = getDokumen();
       <?php endfor; ?>
     </div>
 
-    <h2 class="section-title" style="margin-top:30px">Publikasi Dokumen</h2>
-    <div class="table-wrap card">
+    <h2 class="section-title reveal" style="margin-top:30px">Publikasi Dokumen</h2>
+    <div class="table-wrap card reveal">
       <table class="table">
         <thead><tr><th>Judul</th><th>Tanggal</th><th>Unduh</th></tr></thead>
         <tbody>
@@ -139,18 +148,22 @@ $dokumen = getDokumen();
 
 <script>
 const layananData = <?= json_encode($layanan) ?>;
-const labels = layananData.map(item => `${item.opd} (${item.bulan}/${item.tahun})`);
-new Chart(document.getElementById('chartLayanan'), {
-  type: 'bar',
-  data: {
-    labels,
-    datasets: [
-      { label: 'Realisasi Fisik (%)', data: layananData.map(item => item.realisasi_fisik), backgroundColor: '#004a99' },
-      { label: 'Realisasi Keuangan (%)', data: layananData.map(item => item.realisasi_keuangan), backgroundColor: '#00a3d7' }
-    ]
-  },
-  options: { responsive: true, maintainAspectRatio: false }
-});
+const chartEl = document.getElementById('chartLayanan');
+if (chartEl && layananData.length) {
+  const labels = layananData.map(item => `${item.opd} (${item.bulan}/${item.tahun})`);
+  new Chart(chartEl, {
+    type: 'bar',
+    data: {
+      labels,
+      datasets: [
+        { label: 'Realisasi Fisik (%)', data: layananData.map(item => item.realisasi_fisik), backgroundColor: '#004a99' },
+        { label: 'Realisasi Keuangan (%)', data: layananData.map(item => item.realisasi_keuangan), backgroundColor: '#00a3d7' }
+      ]
+    },
+    options: { responsive: true, maintainAspectRatio: false }
+  });
+}
 </script>
+<script src="assets/js/app.js"></script>
 </body>
 </html>
