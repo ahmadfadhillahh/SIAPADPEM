@@ -6,6 +6,16 @@ document.querySelectorAll('[data-confirm]').forEach((el) => {
   });
 });
 
+// Entry animation on each refresh
+if (document.body) {
+  document.body.classList.add('page-enter');
+  window.addEventListener('load', () => {
+    requestAnimationFrame(() => {
+      document.body.classList.add('page-enter-active');
+    });
+  });
+}
+
 // Navbar shadow on scroll
 const navbar = document.querySelector('.navbar');
 if (navbar) {
@@ -28,7 +38,7 @@ if (revealItems.length) {
   revealItems.forEach((item) => observer.observe(item));
 }
 
-// Struktur slider controls + auto slide
+// Struktur slider controls + auto-slide to the right
 const slider = document.getElementById('strukturSlider');
 const prevBtn = document.querySelector('[data-slide="prev"]');
 const nextBtn = document.querySelector('[data-slide="next"]');
@@ -38,24 +48,27 @@ if (slider) {
   prevBtn?.addEventListener('click', () => slider.scrollBy({ left: -getStep(), behavior: 'smooth' }));
   nextBtn?.addEventListener('click', () => slider.scrollBy({ left: getStep(), behavior: 'smooth' }));
 
-  let autoSlide = setInterval(() => {
+  const slideRight = () => {
     const maxLeft = slider.scrollWidth - slider.clientWidth;
-    if (slider.scrollLeft + 10 >= maxLeft) {
-      slider.scrollTo({ left: 0, behavior: 'smooth' });
+    if (maxLeft <= 0) return;
+
+    if (slider.scrollLeft <= 10) {
+      slider.scrollTo({ left: maxLeft, behavior: 'smooth' });
       return;
     }
-    slider.scrollBy({ left: getStep(), behavior: 'smooth' });
-  }, 4500);
+
+    slider.scrollBy({ left: -getStep(), behavior: 'smooth' });
+  };
+
+  // Start from end so card movement appears to the right.
+  requestAnimationFrame(() => {
+    slider.scrollLeft = Math.max(0, slider.scrollWidth - slider.clientWidth);
+  });
+
+  let autoSlide = setInterval(slideRight, 4500);
 
   slider.addEventListener('mouseenter', () => clearInterval(autoSlide));
   slider.addEventListener('mouseleave', () => {
-    autoSlide = setInterval(() => {
-      const maxLeft = slider.scrollWidth - slider.clientWidth;
-      if (slider.scrollLeft + 10 >= maxLeft) {
-        slider.scrollTo({ left: 0, behavior: 'smooth' });
-        return;
-      }
-      slider.scrollBy({ left: getStep(), behavior: 'smooth' });
-    }, 4500);
+    autoSlide = setInterval(slideRight, 4500);
   });
 }
