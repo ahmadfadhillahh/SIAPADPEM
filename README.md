@@ -32,3 +32,10 @@ Website profesional dan responsif berbasis **PHP + MySQL + HTML/CSS/JS** sesuai 
 - `includes/` helper, data, koneksi.
 - `assets/` CSS, JS, upload file.
 - `database.sql` skema MySQL.
+
+
+## Export ZIP Proyek
+Untuk membuat file ZIP proyek secara lokal:
+```bash
+zip -r SIAPADPEM.zip . -x "*/.git/*" "*/assets/uploads/*" "*.zip"
+```
