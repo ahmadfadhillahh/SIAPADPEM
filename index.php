@@ -97,7 +97,7 @@ $dokumen = getDokumen();
     <div class="grid grid-3">
       <?php foreach ($kegiatan as $item): ?>
       <article class="card pub-card reveal">
-        <a href="kegiatan_detail.php?id=<?= (int) $item['id'] ?>">
+        <a href="kegiatan_detail.php?id=<?= (int) $item['id'] ?>" target="_blank" rel="noopener noreferrer">
           <img src="<?= e($item['gambar_path'] ?: 'https://placehold.co/600x400?text=Kegiatan') ?>" alt="<?= e($item['judul']) ?>">
           <small class="meta"><?= e(date('d M Y', strtotime($item['tanggal_publikasi']))) ?> • <?= e($item['penulis']) ?></small>
           <h3><?= e($item['judul']) ?></h3>
