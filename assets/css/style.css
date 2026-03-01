@@ -87,3 +87,14 @@ select,input,textarea{width:100%;padding:10px;border:1px solid var(--border);bor
 
 @media (max-width:900px){.grid-3{grid-template-columns:1fr 1fr}.slider .person{max-width:48%}.admin-layout{grid-template-columns:1fr}}
 @media (max-width:640px){.nav-wrap{flex-direction:column;align-items:flex-start;gap:10px}.grid-3,.grid-2{grid-template-columns:1fr}.slider .person{max-width:80%;min-width:220px}.hero h1{font-size:1.7rem}}
+
+
+/* Login modal (no redirect to login.php page) */
+.login-modal{position:fixed;inset:0;display:none;z-index:2000}
+.login-modal.show{display:block}
+.login-backdrop{position:absolute;inset:0;background:rgba(2,6,23,.55)}
+.login-dialog{position:relative;width:min(420px,92%);margin:8vh auto 0;background:var(--surface);color:var(--text);border:1px solid var(--border);border-radius:16px;padding:20px;box-shadow:var(--shadow);animation:heroPopIn .25s ease}
+.login-dialog h3{margin:0 0 6px}
+.login-sub{margin:0 0 14px;color:var(--muted)}
+.login-close{position:absolute;top:8px;right:10px;border:0;background:transparent;color:var(--text);font-size:26px;cursor:pointer}
+.login-msg{min-height:20px;margin:10px 0 0;color:#ef4444;font-size:.92rem}
