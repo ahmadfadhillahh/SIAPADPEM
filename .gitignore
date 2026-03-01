@@ -1,0 +1,6 @@
+assets/uploads/struktur/*
+assets/uploads/kegiatan/*
+assets/uploads/dokumen/*
+!assets/uploads/struktur/.gitkeep
+!assets/uploads/kegiatan/.gitkeep
+!assets/uploads/dokumen/.gitkeep
