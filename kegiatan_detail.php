@@ -9,6 +9,9 @@ $berita = $id > 0 ? getKegiatanById($id) : null;
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <title><?= $berita ? e($berita['judul']) : 'Kegiatan tidak ditemukan' ?></title>
   <link rel="stylesheet" href="assets/css/style.css">
 </head>
@@ -19,6 +22,7 @@ $berita = $id > 0 ? getKegiatanById($id) : null;
     <div class="nav-menu">
       <a href="index.php#beranda">Beranda</a>
       <a href="index.php#publikasi">Publikasi</a>
+      <button type="button" class="btn outline" id="themeToggle" aria-label="Ganti tema">🌙 Mode Gelap</button>
       <a class="btn" href="admin/login.php">Login Admin</a>
     </div>
   </div>

@@ -16,6 +16,34 @@ if (document.body) {
   });
 }
 
+
+// Theme toggle (light/dark)
+const root = document.documentElement;
+const themeToggle = document.getElementById('themeToggle');
+const savedTheme = localStorage.getItem('siapadpem-theme');
+
+if (savedTheme) {
+  root.setAttribute('data-theme', savedTheme);
+}
+
+const updateThemeLabel = () => {
+  if (!themeToggle) return;
+  const dark = root.getAttribute('data-theme') === 'dark';
+  themeToggle.textContent = dark ? '☀️ Mode Terang' : '🌙 Mode Gelap';
+};
+updateThemeLabel();
+
+themeToggle?.addEventListener('click', () => {
+  const current = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+  root.setAttribute('data-theme', current === 'light' ? '' : 'dark');
+  if (current === 'light') {
+    localStorage.removeItem('siapadpem-theme');
+  } else {
+    localStorage.setItem('siapadpem-theme', 'dark');
+  }
+  updateThemeLabel();
+});
+
 // Navbar shadow on scroll
 const navbar = document.querySelector('.navbar');
 if (navbar) {
