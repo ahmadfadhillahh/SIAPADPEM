@@ -30,7 +30,8 @@ $uraianFungsi = [
     'Penyiapan bahan pemantauan dan evaluasi pelaksanaan kebijakan daerah di bidang penyusunan program, pengendalian program, serta evaluasi dan pelaporan.',
     'Penyiapan pengoordinasian perumusan kebijakan daerah, pengoordinasian pelaksanaan tugas Perangkat Daerah, serta pemantauan dan evaluasi pelaksanaan kebijakan daerah di bidang sumber daya alam.'
 ];
-$struktur = getStruktur();
+$strukturPimpinan = getStrukturByKategori('Pimpinan');
+$strukturStaf = getStrukturByKategori('Staf');
 $opds = getDistinctOPD();
 $layanan = getLayanan($filters);
 $kegiatan = getKegiatan($perPage, $offset);
@@ -110,21 +111,39 @@ $dokumen = getDokumen();
       </div>
     </div>
 
-    <h2 class="section-title reveal" style="margin-top:30px">Struktur Organisasi</h2>
+    <h2 class="section-title reveal" style="margin-top:30px">Struktur Organisasi - Pimpinan</h2>
     <div class="slider-shell reveal">
       <div class="slider-controls">
-        <button type="button" class="slider-btn" data-slide="prev" aria-label="Sebelumnya">‹</button>
-        <button type="button" class="slider-btn" data-slide="next" aria-label="Selanjutnya">›</button>
+        <button type="button" class="slider-btn" data-slide="prev" data-target="strukturPimpinan" aria-label="Sebelumnya">‹</button>
+        <button type="button" class="slider-btn" data-slide="next" data-target="strukturPimpinan" aria-label="Selanjutnya">›</button>
       </div>
-      <div class="slider" id="strukturSlider">
-        <?php foreach ($struktur as $item): ?>
+      <div class="slider" id="strukturPimpinan" data-structure-slider>
+        <?php foreach ($strukturPimpinan as $item): ?>
           <article class="card person">
             <img src="<?= e($item['foto_path'] ?: 'https://placehold.co/600x400?text=Foto') ?>" alt="<?= e($item['nama']) ?>">
             <h3><?= e($item['nama']) ?></h3>
             <p><?= e($item['jabatan']) ?></p>
           </article>
         <?php endforeach; ?>
-        <?php if (!$struktur): ?><p>Belum ada data struktur organisasi.</p><?php endif; ?>
+        <?php if (!$strukturPimpinan): ?><p>Belum ada data pimpinan.</p><?php endif; ?>
+      </div>
+    </div>
+
+    <h2 class="section-title reveal" style="margin-top:22px">Struktur Organisasi - Staf</h2>
+    <div class="slider-shell reveal">
+      <div class="slider-controls">
+        <button type="button" class="slider-btn" data-slide="prev" data-target="strukturStaf" aria-label="Sebelumnya">‹</button>
+        <button type="button" class="slider-btn" data-slide="next" data-target="strukturStaf" aria-label="Selanjutnya">›</button>
+      </div>
+      <div class="slider" id="strukturStaf" data-structure-slider>
+        <?php foreach ($strukturStaf as $item): ?>
+          <article class="card person">
+            <img src="<?= e($item['foto_path'] ?: 'https://placehold.co/600x400?text=Foto') ?>" alt="<?= e($item['nama']) ?>">
+            <h3><?= e($item['nama']) ?></h3>
+            <p><?= e($item['jabatan']) ?></p>
+          </article>
+        <?php endforeach; ?>
+        <?php if (!$strukturStaf): ?><p>Belum ada data staf.</p><?php endif; ?>
       </div>
     </div>
   </div>

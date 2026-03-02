@@ -7,7 +7,7 @@ document.querySelectorAll('[data-confirm]').forEach((el) => {
 });
 
 // Entry animation on each refresh
-if (document.body) {
+if (document.body && !document.body.classList.contains('admin-page')) {
   document.body.classList.add('page-enter');
   window.addEventListener('load', () => {
     requestAnimationFrame(() => {
@@ -39,11 +39,13 @@ if (revealItems.length) {
 }
 
 // Struktur slider controls + auto-slide to the right
-const slider = document.getElementById('strukturSlider');
-const prevBtn = document.querySelector('[data-slide="prev"]');
-const nextBtn = document.querySelector('[data-slide="next"]');
+const sliders = document.querySelectorAll('[data-structure-slider]');
 
-if (slider) {
+sliders.forEach((slider) => {
+  const targetId = slider.getAttribute('id');
+  const prevBtn = document.querySelector(`[data-slide="prev"][data-target="${targetId}"]`);
+  const nextBtn = document.querySelector(`[data-slide="next"][data-target="${targetId}"]`);
+
   const getStep = () => Math.max(240, Math.floor(slider.clientWidth * 0.75));
   prevBtn?.addEventListener('click', () => slider.scrollBy({ left: -getStep(), behavior: 'smooth' }));
   nextBtn?.addEventListener('click', () => slider.scrollBy({ left: getStep(), behavior: 'smooth' }));
@@ -51,12 +53,10 @@ if (slider) {
   const slideRight = () => {
     const maxLeft = slider.scrollWidth - slider.clientWidth;
     if (maxLeft <= 0) return;
-
     if (slider.scrollLeft <= 10) {
       slider.scrollTo({ left: maxLeft, behavior: 'smooth' });
       return;
     }
-
     slider.scrollBy({ left: -getStep(), behavior: 'smooth' });
   };
 
@@ -65,12 +65,11 @@ if (slider) {
   });
 
   let autoSlide = setInterval(slideRight, 4500);
-
   slider.addEventListener('mouseenter', () => clearInterval(autoSlide));
   slider.addEventListener('mouseleave', () => {
     autoSlide = setInterval(slideRight, 4500);
   });
-}
+});
 
 // Login modal on-click (without navigating to login.php page)
 const loginButton = document.getElementById('loginButton');

@@ -19,6 +19,7 @@ CREATE TABLE IF NOT EXISTS struktur_organisasi (
     id INT AUTO_INCREMENT PRIMARY KEY,
     nama VARCHAR(100) NOT NULL,
     jabatan VARCHAR(150) NOT NULL,
+    kategori ENUM('Pimpinan','Staf') NOT NULL DEFAULT 'Staf',
     foto_path VARCHAR(255),
     urutan INT DEFAULT 0,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
@@ -79,3 +80,7 @@ ALTER TABLE publikasi_dokumen
 ALTER TABLE publikasi_kegiatan
     ADD COLUMN IF NOT EXISTS gambar_path_2 VARCHAR(255) NULL AFTER gambar_path,
     ADD COLUMN IF NOT EXISTS gambar_path_3 VARCHAR(255) NULL AFTER gambar_path_2;
+
+
+ALTER TABLE struktur_organisasi
+    ADD COLUMN IF NOT EXISTS kategori ENUM('Pimpinan','Staf') NOT NULL DEFAULT 'Staf' AFTER jabatan;

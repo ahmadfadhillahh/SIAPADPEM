@@ -25,6 +25,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $id = (int) ($_POST['id'] ?? 0);
     $nama = trim($_POST['nama'] ?? '');
     $jabatan = trim($_POST['jabatan'] ?? '');
+    $kategori = ($_POST['kategori'] ?? 'Staf') === 'Pimpinan' ? 'Pimpinan' : 'Staf';
     $urutan = (int) ($_POST['urutan'] ?? 0);
 
     $fotoPath = uploadFile($_FILES['foto'] ?? [], 'struktur');
@@ -34,13 +35,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $existing->execute([$id]);
         $old = $existing->fetchColumn();
         $finalFoto = $fotoPath ?: $old;
-        $pdo->prepare('UPDATE struktur_organisasi SET nama=?, jabatan=?, urutan=?, foto_path=? WHERE id=?')
-            ->execute([$nama, $jabatan, $urutan, $finalFoto, $id]);
+        $pdo->prepare('UPDATE struktur_organisasi SET nama=?, jabatan=?, kategori=?, urutan=?, foto_path=? WHERE id=?')
+            ->execute([$nama, $jabatan, $kategori, $urutan, $finalFoto, $id]);
         if ($fotoPath && $old) deleteUploadedFile($old);
         flash('success', 'Data struktur diperbarui.');
     } else {
-        $pdo->prepare('INSERT INTO struktur_organisasi (nama, jabatan, urutan, foto_path) VALUES (?,?,?,?)')
-            ->execute([$nama, $jabatan, $urutan, $fotoPath]);
+        $pdo->prepare('INSERT INTO struktur_organisasi (nama, jabatan, kategori, urutan, foto_path) VALUES (?,?,?,?,?)')
+            ->execute([$nama, $jabatan, $kategori, $urutan, $fotoPath]);
         flash('success', 'Data struktur ditambahkan.');
     }
 
@@ -48,7 +49,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     exit;
 }
 
-$rows = $pdo->query('SELECT * FROM struktur_organisasi ORDER BY urutan ASC, id DESC')->fetchAll();
+$rows = $pdo->query('SELECT * FROM struktur_organisasi ORDER BY kategori ASC, urutan ASC, id DESC')->fetchAll();
 ?>
 <h1>Kelola Struktur Organisasi</h1>
 <div class="grid grid-2">
@@ -58,15 +59,25 @@ $rows = $pdo->query('SELECT * FROM struktur_organisasi ORDER BY urutan ASC, id D
       <input type="hidden" name="id" value="<?= (int)($edit['id'] ?? 0) ?>">
       <label>Nama</label><input name="nama" required value="<?= e($edit['nama'] ?? '') ?>">
       <label>Jabatan</label><input name="jabatan" required value="<?= e($edit['jabatan'] ?? '') ?>">
+      <label>Kategori</label>
+      <select name="kategori">
+        <option value="Pimpinan" <?= ($edit['kategori'] ?? '') === 'Pimpinan' ? 'selected' : '' ?>>Pimpinan</option>
+        <option value="Staf" <?= ($edit['kategori'] ?? 'Staf') === 'Staf' ? 'selected' : '' ?>>Staf</option>
+      </select>
       <label>Urutan</label><input name="urutan" type="number" value="<?= (int)($edit['urutan'] ?? 0) ?>">
       <label>Foto</label><input name="foto" type="file" accept="image/*">
       <button class="btn" type="submit" style="margin-top:10px">Simpan</button>
     </form>
   </div>
   <div class="card table-wrap">
-    <table class="table"><thead><tr><th>Nama</th><th>Jabatan</th><th>Aksi</th></tr></thead><tbody>
+    <table class="table"><thead><tr><th>Nama</th><th>Jabatan</th><th>Kategori</th><th>Aksi</th></tr></thead><tbody>
       <?php foreach($rows as $r): ?>
-      <tr><td><?= e($r['nama']) ?></td><td><?= e($r['jabatan']) ?></td><td><a href="?edit=<?= $r['id'] ?>">Edit</a> | <a data-confirm="Hapus data ini?" href="?delete=<?= $r['id'] ?>">Hapus</a></td></tr>
+      <tr>
+        <td><?= e($r['nama']) ?></td>
+        <td><?= e($r['jabatan']) ?></td>
+        <td><?= e($r['kategori'] ?? 'Staf') ?></td>
+        <td><a href="?edit=<?= $r['id'] ?>">Edit</a> | <a data-confirm="Hapus data ini?" href="?delete=<?= $r['id'] ?>">Hapus</a></td>
+      </tr>
       <?php endforeach; ?>
     </tbody></table>
   </div>

@@ -14,6 +14,14 @@ function getStruktur(): array
     return getPDO()->query('SELECT * FROM struktur_organisasi ORDER BY urutan ASC, id DESC')->fetchAll();
 }
 
+
+function getStrukturByKategori(string $kategori): array
+{
+    $stmt = getPDO()->prepare('SELECT * FROM struktur_organisasi WHERE kategori = ? ORDER BY urutan ASC, id DESC');
+    $stmt->execute([$kategori]);
+    return $stmt->fetchAll();
+}
+
 function getKegiatan(int $limit = 6, int $offset = 0): array
 {
     $stmt = getPDO()->prepare('SELECT * FROM publikasi_kegiatan ORDER BY tanggal_publikasi DESC, id DESC LIMIT :l OFFSET :o');
