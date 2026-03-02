@@ -50,8 +50,16 @@ $berita = $id > 0 ? getKegiatanById($id) : null;
   <div class="container">
     <article class="card">
       <img class="article-cover" src="<?= e($berita['gambar_path'] ?: 'https://placehold.co/1200x700?text=Kegiatan') ?>" alt="<?= e($berita['judul']) ?>">
+      <?php $gallery = array_values(array_filter([$berita['gambar_path'], $berita['gambar_path_2'] ?? null, $berita['gambar_path_3'] ?? null])); ?>
+      <?php if (count($gallery) > 1): ?>
+      <div class="article-gallery">
+        <?php foreach ($gallery as $img): ?>
+          <img src="<?= e($img) ?>" alt="Galeri kegiatan">
+        <?php endforeach; ?>
+      </div>
+      <?php endif; ?>
       <p style="margin-top:20px;color:#64748b"><?= e($berita['ringkasan'] ?: '-') ?></p>
-      <div class="article-content"><?= nl2br(e($berita['konten'] ?: 'Konten berita belum tersedia.')) ?></div>
+      <div class="article-content"><?= $berita['konten'] ?: 'Konten berita belum tersedia.' ?></div>
     </article>
   </div>
 </section>

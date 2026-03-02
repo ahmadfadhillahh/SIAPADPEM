@@ -43,6 +43,8 @@ CREATE TABLE IF NOT EXISTS publikasi_kegiatan (
     penulis VARCHAR(100) NOT NULL,
     tanggal_publikasi DATE NOT NULL,
     gambar_path VARCHAR(255),
+    gambar_path_2 VARCHAR(255),
+    gambar_path_3 VARCHAR(255),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
@@ -72,3 +74,8 @@ ON DUPLICATE KEY UPDATE setting_value = VALUES(setting_value);
 ALTER TABLE publikasi_dokumen
     ADD COLUMN IF NOT EXISTS tipe_dokumen ENUM('Publik','Terbatas') NOT NULL DEFAULT 'Publik' AFTER file_path,
     ADD COLUMN IF NOT EXISTS password_hash VARCHAR(255) NULL AFTER tipe_dokumen;
+
+
+ALTER TABLE publikasi_kegiatan
+    ADD COLUMN IF NOT EXISTS gambar_path_2 VARCHAR(255) NULL AFTER gambar_path,
+    ADD COLUMN IF NOT EXISTS gambar_path_3 VARCHAR(255) NULL AFTER gambar_path_2;

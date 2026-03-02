@@ -89,3 +89,13 @@ select,input,textarea{width:100%;padding:10px;border:1px solid var(--border);bor
 
 @media (max-width:900px){.grid-3{grid-template-columns:1fr 1fr}.slider .person{max-width:48%}.admin-layout{grid-template-columns:1fr}}
 @media (max-width:640px){.nav-wrap{flex-direction:column;align-items:flex-start;gap:10px}.grid-3,.grid-2{grid-template-columns:1fr}.slider .person{max-width:80%;min-width:220px}.hero h1{font-size:1.7rem}.submenu{position:static;display:block;border:none;box-shadow:none;padding:4px 0}.menu-group>span{display:block;margin-bottom:4px}}
+
+
+/* Kegiatan editor */
+.editor-toolbar{display:flex;gap:8px;flex-wrap:wrap;margin:8px 0}
+.editor-toolbar button,.editor-toolbar select{padding:8px 10px;border:1px solid var(--border);background:var(--surface);border-radius:8px;cursor:pointer}
+.editor-content{min-height:220px;border:1px solid var(--border);background:var(--surface);border-radius:10px;padding:12px;overflow:auto}
+
+/* Artikel gallery */
+.article-gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:12px}
+.article-gallery img{width:100%;height:120px;object-fit:cover;border-radius:10px;border:1px solid var(--border)}

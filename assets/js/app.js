@@ -149,3 +149,28 @@ protectedDocButtons.forEach((btn) => {
     document.body.removeChild(form);
   });
 });
+
+
+// Rich text editor for admin kegiatan
+const editor = document.getElementById('kontenEditor');
+const kontenInput = document.getElementById('kontenInput');
+const kegiatanForm = document.getElementById('kegiatanForm');
+const fontSizeSelect = document.getElementById('fontSizeSelect');
+
+if (editor && kontenInput && kegiatanForm) {
+  document.querySelectorAll('[data-editor-cmd]').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      document.execCommand(btn.dataset.editorCmd, false, null);
+      editor.focus();
+    });
+  });
+
+  fontSizeSelect?.addEventListener('change', () => {
+    document.execCommand('fontSize', false, fontSizeSelect.value);
+    editor.focus();
+  });
+
+  kegiatanForm.addEventListener('submit', () => {
+    kontenInput.value = editor.innerHTML;
+  });
+}
