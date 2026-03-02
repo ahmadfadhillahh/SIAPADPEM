@@ -18,7 +18,7 @@ $berita = $id > 0 ? getKegiatanById($id) : null;
 <body>
 <nav class="navbar">
   <div class="container nav-wrap">
-    <div class="brand">SIAPADPEM</div>
+    <div class="brand"><img src="assets/img/logo-karimun.svg" alt="Logo Kabupaten Karimun"><span>SIAPADPEM</span></div>
     <div class="nav-menu">
       <a href="index.php#beranda">Beranda</a>
       <a href="index.php#publikasi">Publikasi</a>

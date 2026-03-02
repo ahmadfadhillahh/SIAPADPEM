@@ -18,7 +18,9 @@ body.page-enter-active{opacity:1;transform:translateY(0);transition:opacity .55s
 .navbar{position:sticky;top:0;z-index:1000;background:color-mix(in srgb,var(--surface) 88%, transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--border);transition:.3s}
 .navbar.scrolled{box-shadow:var(--shadow)}
 .nav-wrap{display:flex;justify-content:space-between;align-items:center;padding:14px 0}
-.brand{font-weight:800;color:var(--primary);letter-spacing:.4px}
+.brand{font-weight:800;color:var(--primary);letter-spacing:.4px;display:flex;align-items:center;gap:10px}
+.brand img{width:44px;height:52px;object-fit:contain;filter:drop-shadow(0 2px 4px rgba(0,0,0,.2))}
+.brand span{line-height:1}
 .nav-menu{display:flex;gap:14px;align-items:center;flex-wrap:wrap}
 .nav-menu a{font-weight:600;position:relative}
 .nav-menu a:not(.btn)::after{content:"";position:absolute;left:0;bottom:-4px;width:0;height:2px;background:var(--secondary);transition:.25s}
