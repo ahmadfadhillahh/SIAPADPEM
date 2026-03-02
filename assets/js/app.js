@@ -16,34 +16,6 @@ if (document.body) {
   });
 }
 
-
-// Theme toggle (light/dark)
-const root = document.documentElement;
-const themeToggle = document.getElementById('themeToggle');
-const savedTheme = localStorage.getItem('siapadpem-theme');
-
-if (savedTheme) {
-  root.setAttribute('data-theme', savedTheme);
-}
-
-const updateThemeLabel = () => {
-  if (!themeToggle) return;
-  const dark = root.getAttribute('data-theme') === 'dark';
-  themeToggle.textContent = dark ? '☀️ Mode Terang' : '🌙 Mode Gelap';
-};
-updateThemeLabel();
-
-themeToggle?.addEventListener('click', () => {
-  const current = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
-  root.setAttribute('data-theme', current === 'light' ? '' : 'dark');
-  if (current === 'light') {
-    localStorage.removeItem('siapadpem-theme');
-  } else {
-    localStorage.setItem('siapadpem-theme', 'dark');
-  }
-  updateThemeLabel();
-});
-
 // Navbar shadow on scroll
 const navbar = document.querySelector('.navbar');
 if (navbar) {
@@ -88,7 +60,6 @@ if (slider) {
     slider.scrollBy({ left: -getStep(), behavior: 'smooth' });
   };
 
-  // Start from end so card movement appears to the right.
   requestAnimationFrame(() => {
     slider.scrollLeft = Math.max(0, slider.scrollWidth - slider.clientWidth);
   });
@@ -100,7 +71,6 @@ if (slider) {
     autoSlide = setInterval(slideRight, 4500);
   });
 }
-
 
 // Login modal on-click (without navigating to login.php page)
 const loginButton = document.getElementById('loginButton');
@@ -146,3 +116,36 @@ loginForm?.addEventListener('submit', async (e) => {
   }
 });
 
+// Protected document download flow
+const protectedDocButtons = document.querySelectorAll('.btn-protected-doc');
+protectedDocButtons.forEach((btn) => {
+  btn.addEventListener('click', () => {
+    const docId = btn.dataset.id;
+    const password = prompt('Masukkan password dokumen terbatas:');
+    if (!password) {
+      alert('Password wajib diisi untuk dokumen terbatas.');
+      return;
+    }
+
+    const form = document.createElement('form');
+    form.method = 'POST';
+    form.action = 'download_dokumen.php';
+    form.target = '_blank';
+
+    const idInput = document.createElement('input');
+    idInput.type = 'hidden';
+    idInput.name = 'id';
+    idInput.value = docId;
+
+    const passInput = document.createElement('input');
+    passInput.type = 'hidden';
+    passInput.name = 'password';
+    passInput.value = password;
+
+    form.appendChild(idInput);
+    form.appendChild(passInput);
+    document.body.appendChild(form);
+    form.submit();
+    document.body.removeChild(form);
+  });
+});

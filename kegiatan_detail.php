@@ -22,7 +22,6 @@ $berita = $id > 0 ? getKegiatanById($id) : null;
     <div class="nav-menu">
       <a href="index.php#beranda">Beranda</a>
       <a href="index.php#publikasi">Publikasi</a>
-      <button type="button" class="btn outline" id="themeToggle" aria-label="Ganti tema">🌙 Mode Gelap</button>
       <button type="button" class="btn" id="loginButton">Login Admin</button>
     </div>
   </div>

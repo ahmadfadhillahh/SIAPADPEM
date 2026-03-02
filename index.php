@@ -39,11 +39,22 @@ $dokumen = getDokumen();
     <div class="brand"><img src="assets/img/logo-karimun.svg" alt="Logo Kabupaten Karimun"><span>SIAPADPEM</span></div>
     <div class="nav-menu">
       <a href="#beranda">Beranda</a>
-      <a href="#profil">Profil</a>
+      <div class="menu-group">
+        <span>Profil</span>
+        <div class="submenu">
+          <a href="#profil">Tupoksi</a>
+          <a href="#profil">Struktur Organisasi</a>
+        </div>
+      </div>
       <a href="#layanan">Layanan</a>
-      <a href="#publikasi">Publikasi</a>
+      <div class="menu-group">
+        <span>Publikasi</span>
+        <div class="submenu">
+          <a href="#publikasi">Kegiatan</a>
+          <a href="#publikasi">Dokumen</a>
+        </div>
+      </div>
       <a href="#kontak">Kontak</a>
-      <button type="button" class="btn outline" id="themeToggle" aria-label="Ganti tema">🌙 Mode Gelap</button>
       <button type="button" class="btn" id="loginButton">Login Admin</button>
     </div>
   </div>
@@ -121,16 +132,23 @@ $dokumen = getDokumen();
     <h2 class="section-title reveal" style="margin-top:30px">Publikasi Dokumen</h2>
     <div class="table-wrap card reveal">
       <table class="table">
-        <thead><tr><th>Judul</th><th>Tanggal</th><th>Unduh</th></tr></thead>
+        <thead><tr><th>Judul</th><th>Tipe</th><th>Tanggal</th><th>Unduh</th></tr></thead>
         <tbody>
           <?php foreach ($dokumen as $doc): ?>
           <tr>
             <td><?= e($doc['judul']) ?></td>
+            <td><?= e($doc['tipe_dokumen'] ?? 'Publik') ?></td>
             <td><?= e(date('d M Y', strtotime($doc['tanggal_publikasi']))) ?></td>
-            <td><a class="btn" href="<?= e($doc['file_path']) ?>" download>Download</a></td>
+            <td>
+              <?php if (($doc['tipe_dokumen'] ?? 'Publik') === 'Terbatas'): ?>
+                <button class="btn btn-protected-doc" type="button" data-id="<?= (int) $doc['id'] ?>">Download (Password)</button>
+              <?php else: ?>
+                <a class="btn" href="download_dokumen.php?id=<?= (int) $doc['id'] ?>">Download</a>
+              <?php endif; ?>
+            </td>
           </tr>
           <?php endforeach; ?>
-          <?php if (!$dokumen): ?><tr><td colspan="3">Belum ada dokumen.</td></tr><?php endif; ?>
+          <?php if (!$dokumen): ?><tr><td colspan="4">Belum ada dokumen.</td></tr><?php endif; ?>
         </tbody>
       </table>
     </div>

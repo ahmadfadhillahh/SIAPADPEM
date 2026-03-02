@@ -51,6 +51,8 @@ CREATE TABLE IF NOT EXISTS publikasi_dokumen (
     judul VARCHAR(200) NOT NULL,
     deskripsi TEXT,
     file_path VARCHAR(255) NOT NULL,
+    tipe_dokumen ENUM('Publik','Terbatas') NOT NULL DEFAULT 'Publik',
+    password_hash VARCHAR(255) NULL,
     tanggal_publikasi DATE NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
@@ -65,3 +67,8 @@ VALUES
 ('hero_subtitle', 'Sistem Informasi Administrasi Pemerintahan Daerah yang transparan, akuntabel, dan responsif.'),
 ('tupoksi_text', 'Tugas pokok dan fungsi mencakup perencanaan pembangunan, koordinasi antar perangkat daerah, pemantauan realisasi program, evaluasi capaian, serta pelaporan kinerja secara berkelanjutan untuk mendukung tata kelola pemerintahan yang baik.')
 ON DUPLICATE KEY UPDATE setting_value = VALUES(setting_value);
+
+
+ALTER TABLE publikasi_dokumen
+    ADD COLUMN IF NOT EXISTS tipe_dokumen ENUM('Publik','Terbatas') NOT NULL DEFAULT 'Publik' AFTER file_path,
+    ADD COLUMN IF NOT EXISTS password_hash VARCHAR(255) NULL AFTER tipe_dokumen;

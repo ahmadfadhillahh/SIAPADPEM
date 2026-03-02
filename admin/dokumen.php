@@ -26,15 +26,29 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $judul = trim($_POST['judul'] ?? '');
     $deskripsi = trim($_POST['deskripsi'] ?? '');
     $tgl = $_POST['tanggal_publikasi'] ?? date('Y-m-d');
+    $tipe = ($_POST['tipe_dokumen'] ?? 'Publik') === 'Terbatas' ? 'Terbatas' : 'Publik';
+    $passwordInput = trim($_POST['password_dokumen'] ?? '');
+    $passwordHash = $passwordInput !== '' ? password_hash($passwordInput, PASSWORD_DEFAULT) : null;
     $file = uploadFile($_FILES['file_dokumen'] ?? [], 'dokumen');
 
     if ($id > 0) {
-        $stmt = $pdo->prepare('SELECT file_path FROM publikasi_dokumen WHERE id=?');
+        $stmt = $pdo->prepare('SELECT file_path, password_hash FROM publikasi_dokumen WHERE id=?');
         $stmt->execute([$id]);
-        $old = $stmt->fetchColumn();
+        $existing = $stmt->fetch();
+        $old = $existing['file_path'] ?? null;
+        $oldHash = $existing['password_hash'] ?? null;
+
         $path = $file ?: $old;
-        $pdo->prepare('UPDATE publikasi_dokumen SET judul=?, deskripsi=?, file_path=?, tanggal_publikasi=? WHERE id=?')
-            ->execute([$judul, $deskripsi, $path, $tgl, $id]);
+        $finalHash = $tipe === 'Terbatas' ? ($passwordHash ?: $oldHash) : null;
+
+        if ($tipe === 'Terbatas' && !$finalHash) {
+            flash('error', 'Dokumen terbatas wajib memiliki password.');
+            header('Location: dokumen.php' . ($id ? '?edit=' . $id : ''));
+            exit;
+        }
+
+        $pdo->prepare('UPDATE publikasi_dokumen SET judul=?, deskripsi=?, file_path=?, tanggal_publikasi=?, tipe_dokumen=?, password_hash=? WHERE id=?')
+            ->execute([$judul, $deskripsi, $path, $tgl, $tipe, $finalHash, $id]);
         if ($file && $old) deleteUploadedFile($old);
         flash('success', 'Dokumen diperbarui.');
     } else {
@@ -43,8 +57,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             header('Location: dokumen.php');
             exit;
         }
-        $pdo->prepare('INSERT INTO publikasi_dokumen (judul, deskripsi, file_path, tanggal_publikasi) VALUES (?,?,?,?)')
-            ->execute([$judul, $deskripsi, $file, $tgl]);
+        if ($tipe === 'Terbatas' && !$passwordHash) {
+            flash('error', 'Password wajib diisi untuk dokumen terbatas.');
+            header('Location: dokumen.php');
+            exit;
+        }
+        $pdo->prepare('INSERT INTO publikasi_dokumen (judul, deskripsi, file_path, tanggal_publikasi, tipe_dokumen, password_hash) VALUES (?,?,?,?,?,?)')
+            ->execute([$judul, $deskripsi, $file, $tgl, $tipe, $tipe === 'Terbatas' ? $passwordHash : null]);
         flash('success', 'Dokumen ditambahkan.');
     }
 
@@ -62,15 +81,28 @@ $rows = $pdo->query('SELECT * FROM publikasi_dokumen ORDER BY tanggal_publikasi 
       <input type="hidden" name="id" value="<?= (int)($edit['id'] ?? 0) ?>">
       <label>Judul</label><input name="judul" required value="<?= e($edit['judul'] ?? '') ?>">
       <label>Tanggal Publikasi</label><input type="date" name="tanggal_publikasi" value="<?= e($edit['tanggal_publikasi'] ?? date('Y-m-d')) ?>">
+      <label>Tipe Dokumen</label>
+      <select name="tipe_dokumen">
+        <option value="Publik" <?= ($edit['tipe_dokumen'] ?? 'Publik') === 'Publik' ? 'selected' : '' ?>>Publik</option>
+        <option value="Terbatas" <?= ($edit['tipe_dokumen'] ?? '') === 'Terbatas' ? 'selected' : '' ?>>Terbatas</option>
+      </select>
+      <label>Password Dokumen (wajib jika tipe terbatas)</label>
+      <input type="password" name="password_dokumen" placeholder="Isi password baru atau biarkan kosong untuk mempertahankan password lama saat edit">
       <label>Deskripsi</label><textarea name="deskripsi"><?= e($edit['deskripsi'] ?? '') ?></textarea>
       <label>File Dokumen (PDF/DOC)</label><input type="file" name="file_dokumen" accept=".pdf,.doc,.docx">
       <button class="btn" type="submit" style="margin-top:10px">Simpan</button>
     </form>
   </div>
   <div class="card table-wrap">
-    <table class="table"><thead><tr><th>Tgl</th><th>Judul</th><th>Download</th><th>Aksi</th></tr></thead><tbody>
+    <table class="table"><thead><tr><th>Tgl</th><th>Judul</th><th>Tipe</th><th>Download</th><th>Aksi</th></tr></thead><tbody>
       <?php foreach ($rows as $r): ?>
-      <tr><td><?= e($r['tanggal_publikasi']) ?></td><td><?= e($r['judul']) ?></td><td><a href="../<?= e($r['file_path']) ?>" download>Unduh</a></td><td><a href="?edit=<?= $r['id'] ?>">Edit</a> | <a data-confirm="Hapus data ini?" href="?delete=<?= $r['id'] ?>">Hapus</a></td></tr>
+      <tr>
+        <td><?= e($r['tanggal_publikasi']) ?></td>
+        <td><?= e($r['judul']) ?></td>
+        <td><?= e($r['tipe_dokumen'] ?? 'Publik') ?></td>
+        <td><a href="../download_dokumen.php?id=<?= (int)$r['id'] ?>" target="_blank">Unduh</a></td>
+        <td><a href="?edit=<?= $r['id'] ?>">Edit</a> | <a data-confirm="Hapus data ini?" href="?delete=<?= $r['id'] ?>">Hapus</a></td>
+      </tr>
       <?php endforeach; ?>
     </tbody></table>
   </div>
