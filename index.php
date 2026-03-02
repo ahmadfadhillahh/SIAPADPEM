@@ -13,6 +13,23 @@ $filters = [
 $heroTitle = getSetting('hero_title', 'Portal SIAPADPEM');
 $heroSubtitle = getSetting('hero_subtitle', 'Informasi publik dan layanan realisasi pembangunan daerah.');
 $tupoksi = getSetting('tupoksi_text', '-');
+$tupoksiIntro = "Bagian Administrasi Pembangunan mempunyai tugas melaksanakan penyiapan pengoordinasian perumusan kebijakan daerah, pengoordinasian pelaksanaan tugas Perangkat Daerah, serta pemantauan dan evaluasi pelaksanaan kebijakan daerah di bidang penyusunan program, pengendalian program, evaluasi dan pelaporan, serta sumber daya alam.";
+$uraianTugas = [
+    'Merencanakan dan mengkoordinasikan penyusunan program Sekretariat Daerah Kabupaten Karimun.',
+    'Melakukan fasilitasi terkait koordinasi dan pengumpulan data usulan Standar Satuan Harga Sekretariat Daerah.',
+    'Melaksanakan penyusunan program, pengendalian program, serta evaluasi dan pelaporan.',
+    'Melaksanakan dan menyusun petunjuk teknis dan bahan kebijakan penyusunan program, pengendalian program, serta evaluasi dan pelaporan.',
+    'Melaksanakan pengadministrasian penyusunan program, pengendalian program, serta evaluasi dan pelaporan.',
+    'Melaksanakan monitoring dan evaluasi terhadap penyusunan program, pengendalian program, serta evaluasi dan pelaporan.',
+    'Melaksanakan penyiapan pengoordinasian perumusan kebijakan daerah, pengoordinasian pelaksanaan tugas Perangkat Daerah, serta pemantauan dan evaluasi pelaksanaan kebijakan daerah di bidang sumber daya alam.'
+];
+$uraianFungsi = [
+    'Penyiapan bahan pengoordinasian perumusan kebijakan daerah di bidang penyusunan program, pengendalian program, serta evaluasi dan pelaporan.',
+    'Penyiapan bahan pengoordinasian pelaksanaan tugas Perangkat Daerah di bidang penyusunan program, pengendalian program, serta evaluasi dan pelaporan.',
+    'Penyiapan bahan penyusunan petunjuk teknis dan bahan kebijakan bidang penyusunan program, pengendalian program, serta evaluasi dan pelaporan.',
+    'Penyiapan bahan pemantauan dan evaluasi pelaksanaan kebijakan daerah di bidang penyusunan program, pengendalian program, serta evaluasi dan pelaporan.',
+    'Penyiapan pengoordinasian perumusan kebijakan daerah, pengoordinasian pelaksanaan tugas Perangkat Daerah, serta pemantauan dan evaluasi pelaksanaan kebijakan daerah di bidang sumber daya alam.'
+];
 $struktur = getStruktur();
 $opds = getDistinctOPD();
 $layanan = getLayanan($filters);
@@ -70,7 +87,28 @@ $dokumen = getDokumen();
 <section id="profil" class="section">
   <div class="container">
     <h2 class="section-title reveal">Profil - Tupoksi</h2>
-    <div class="card reveal"><p><?= nl2br(e($tupoksi)) ?></p></div>
+    <div class="tupoksi-layout reveal">
+      <div class="card highlight-box">
+        <h3>Tugas Pokok</h3>
+        <p><?= e($tupoksiIntro) ?></p>
+      </div>
+      <div class="card">
+        <h3>Uraian Tugas</h3>
+        <ul class="pretty-list">
+          <?php foreach ($uraianTugas as $item): ?>
+            <li><?= e($item) ?></li>
+          <?php endforeach; ?>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Uraian Fungsi</h3>
+        <ul class="pretty-list">
+          <?php foreach ($uraianFungsi as $item): ?>
+            <li><?= e($item) ?></li>
+          <?php endforeach; ?>
+        </ul>
+      </div>
+    </div>
 
     <h2 class="section-title reveal" style="margin-top:30px">Struktur Organisasi</h2>
     <div class="slider-shell reveal">

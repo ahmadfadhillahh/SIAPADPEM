@@ -49,6 +49,15 @@ body.page-enter-active{opacity:1;transform:translateY(0);transition:opacity .55s
 .hero h1{margin:0 0 12px;font-size:2.2rem}.hero p{max-width:760px}
 
 .section{padding:64px 0}.section-title{font-size:1.65rem;margin:0 0 18px;color:var(--text)}
+
+
+/* Tupoksi attractive section */
+.tupoksi-layout{display:grid;grid-template-columns:1fr;gap:14px}
+.highlight-box{background:linear-gradient(120deg,#eff6ff,#ecfeff);border-color:#bfdbfe}
+.highlight-box h3{margin:0 0 8px;color:#1d4ed8}
+.pretty-list{list-style:none;padding:0;margin:0;display:grid;gap:10px}
+.pretty-list li{position:relative;padding:10px 12px 10px 38px;background:#f8fafc;border:1px solid var(--border);border-radius:10px}
+.pretty-list li::before{content:'✓';position:absolute;left:12px;top:10px;width:20px;height:20px;border-radius:999px;background:#dbeafe;color:#1d4ed8;font-weight:700;display:flex;align-items:center;justify-content:center;font-size:.8rem}
 .card{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:18px;box-shadow:var(--shadow)}
 .grid{display:grid;gap:16px}.grid-3{grid-template-columns:repeat(3,1fr)}.grid-2{grid-template-columns:repeat(2,1fr)}
 
