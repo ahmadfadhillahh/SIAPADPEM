@@ -78,16 +78,36 @@ $dokumen = getDokumen();
   </div>
 </nav>
 
-<section id="beranda" class="hero">
-  <div class="container reveal">
-    <h1><?= e($heroTitle) ?></h1>
-    <p><?= e($heroSubtitle) ?></p>
+<section id="beranda" class="hero full-hero">
+  <div class="container hero-grid reveal">
+    <div class="hero-left">
+      <span class="hero-badge">Portal Resmi Pemerintah Daerah</span>
+      <h1><span>SIAP</span> <span>ADPEM</span></h1>
+      <p><?= e($heroSubtitle) ?></p>
+      <p class="hero-desc">Sistem Informasi Administrasi Pembangunan dengan nuansa pelayanan modern, transparan, dan semangat kearifan lokal Melayu Karimun.</p>
+    </div>
+    <div class="hero-right">
+      <div class="leader-card">
+        <div class="leader-photo">Foto Bupati</div>
+        <div>
+          <h3>Bupati Karimun</h3>
+          <p>Ruang profil pimpinan daerah</p>
+        </div>
+      </div>
+      <div class="leader-card">
+        <div class="leader-photo">Foto Wakil Bupati</div>
+        <div>
+          <h3>Wakil Bupati Karimun</h3>
+          <p>Ruang profil wakil pimpinan daerah</p>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
 
 <section id="profil" class="section">
   <div class="container">
-    <h2 class="section-title reveal">Profil - Tupoksi</h2>
+    <h2 class="section-title centered reveal">Profil - Tupoksi</h2>
     <div class="tupoksi-layout reveal">
       <div class="card highlight-box">
         <h3>Tugas Pokok</h3>
@@ -111,7 +131,7 @@ $dokumen = getDokumen();
       </div>
     </div>
 
-    <h2 class="section-title reveal" style="margin-top:30px">Struktur Organisasi - Pimpinan</h2>
+    <h2 class="section-title centered reveal" style="margin-top:30px">Struktur Organisasi - Pimpinan</h2>
     <div class="slider-shell reveal">
       <div class="slider-controls">
         <button type="button" class="slider-btn" data-slide="prev" data-target="strukturPimpinan" aria-label="Sebelumnya">‹</button>
@@ -129,7 +149,7 @@ $dokumen = getDokumen();
       </div>
     </div>
 
-    <h2 class="section-title reveal" style="margin-top:22px">Struktur Organisasi - Staf</h2>
+    <h2 class="section-title centered reveal" style="margin-top:22px">Struktur Organisasi - Staf</h2>
     <div class="slider-shell reveal">
       <div class="slider-controls">
         <button type="button" class="slider-btn" data-slide="prev" data-target="strukturStaf" aria-label="Sebelumnya">‹</button>
@@ -151,7 +171,7 @@ $dokumen = getDokumen();
 
 <section id="layanan" class="section" style="background:#f8fafc">
   <div class="container">
-    <h2 class="section-title reveal">Layanan (SIMPERA) - Grafik Realisasi</h2>
+    <h2 class="section-title centered reveal">Layanan (SIMPERA) - Grafik Realisasi</h2>
     <form class="filters reveal" method="get">
       <input type="hidden" name="page" value="1">
       <div><label>OPD</label><select name="opd"><option value="">Semua OPD</option><?php foreach ($opds as $opd): ?><option value="<?= e($opd) ?>" <?= $filters['opd']===$opd?'selected':'' ?>><?= e($opd) ?></option><?php endforeach; ?></select></div>
@@ -165,7 +185,7 @@ $dokumen = getDokumen();
 
 <section id="publikasi" class="section">
   <div class="container">
-    <h2 class="section-title reveal">Publikasi Kegiatan</h2>
+    <h2 class="section-title centered reveal">Publikasi Kegiatan</h2>
     <div class="grid grid-3">
       <?php foreach ($kegiatan as $item): ?>
       <article class="card pub-card reveal">
@@ -186,7 +206,7 @@ $dokumen = getDokumen();
       <?php endfor; ?>
     </div>
 
-    <h2 class="section-title reveal" style="margin-top:30px">Publikasi Dokumen</h2>
+    <h2 class="section-title centered reveal" style="margin-top:30px">Publikasi Dokumen</h2>
     <div class="table-wrap card reveal">
       <table class="table">
         <thead><tr><th>Judul</th><th>Tipe</th><th>Tanggal</th><th>Unduh</th></tr></thead>
@@ -213,14 +233,17 @@ $dokumen = getDokumen();
 </section>
 
 <footer id="kontak" class="footer">
-  <div class="container grid grid-2">
-    <div>
-      <h4>Kontak</h4>
-      <p>Email: siapadpem@example.go.id<br>Telepon: (021) 1234567<br>Alamat: Jl. Pemerintahan No. 1</p>
+  <div class="container">
+    <h2 class="section-title centered" style="color:var(--text)">Hubungi Kami</h2>
+    <div class="contact-grid">
+      <div class="card contact-card"><h4>📍 Alamat</h4><p>Jl. Jenderal Sudirman, Kabupaten Karimun, Kepulauan Riau</p></div>
+      <div class="card contact-card"><h4>📞 Telfon / WA</h4><p>+62 812-0000-0000<br>(0777) 123456</p></div>
+      <div class="card contact-card"><h4>✉️ Email</h4><p>bag.adpem@karimunkab.go.id</p></div>
+      <div class="card contact-card"><h4>🕒 Jam Kerja</h4><p>Senin - Jumat<br>08.00 - 16.00 WIB</p></div>
     </div>
-    <div>
-      <h4>Tentang</h4>
-      <p>Website resmi SIAPADPEM untuk informasi profil, layanan SIMPERA, dan publikasi pemerintah daerah.</p>
+    <div class="card map-card">
+      <h4>🗺️ Peta Lokasi</h4>
+      <iframe title="Peta Karimun" src="https://www.google.com/maps?q=Kabupaten%20Karimun&output=embed" loading="lazy"></iframe>
     </div>
   </div>
 </footer>
