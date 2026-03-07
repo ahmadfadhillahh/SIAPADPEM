@@ -146,7 +146,7 @@ loginForm?.addEventListener('submit', async (e) => {
 // Protected document download flow
 const protectedDocButtons = document.querySelectorAll('.btn-protected-doc');
 protectedDocButtons.forEach((btn) => {
-  btn.addEventListener('click', () => {
+  btn.addEventListener('click', async () => {
     const docId = btn.dataset.id;
     const password = prompt('Masukkan password dokumen terbatas:');
     if (!password) {
@@ -154,26 +154,37 @@ protectedDocButtons.forEach((btn) => {
       return;
     }
 
-    const form = document.createElement('form');
-    form.method = 'POST';
-    form.action = 'download_dokumen.php';
-    form.target = '_blank';
+    try {
+      const formData = new FormData();
+      formData.append('id', docId);
+      formData.append('password', password);
 
-    const idInput = document.createElement('input');
-    idInput.type = 'hidden';
-    idInput.name = 'id';
-    idInput.value = docId;
+      const res = await fetch('download_dokumen.php', {
+        method: 'POST',
+        body: formData,
+      });
 
-    const passInput = document.createElement('input');
-    passInput.type = 'hidden';
-    passInput.name = 'password';
-    passInput.value = password;
+      if (!res.ok) {
+        alert('Password salah, silahkan meminta Akses melalui Kontak Resmi.');
+        return;
+      }
 
-    form.appendChild(idInput);
-    form.appendChild(passInput);
-    document.body.appendChild(form);
-    form.submit();
-    document.body.removeChild(form);
+      const blob = await res.blob();
+      const objectUrl = URL.createObjectURL(blob);
+      const tempLink = document.createElement('a');
+      tempLink.href = objectUrl;
+
+      const disposition = res.headers.get('Content-Disposition') || '';
+      const match = disposition.match(/filename="?([^";]+)"?/i);
+      tempLink.download = match ? match[1] : `dokumen-${docId}`;
+
+      document.body.appendChild(tempLink);
+      tempLink.click();
+      document.body.removeChild(tempLink);
+      URL.revokeObjectURL(objectUrl);
+    } catch (err) {
+      alert('Terjadi kesalahan saat mengunduh dokumen. Silakan coba lagi.');
+    }
   });
 });
 
