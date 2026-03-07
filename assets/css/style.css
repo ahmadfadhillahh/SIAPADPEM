@@ -19,16 +19,19 @@ body.page-enter-active{opacity:1;transform:translateY(0);transition:opacity .55s
 .brand img{width:44px;height:52px;object-fit:contain;filter:drop-shadow(0 2px 4px rgba(0,0,0,.2))}
 .brand span{line-height:1}
 .nav-menu{display:flex;gap:14px;align-items:center;flex-wrap:wrap}
-.nav-menu a,.menu-group span{font-weight:600;position:relative}
+.nav-menu a,.menu-trigger{font-weight:600;position:relative}
 .nav-menu a:not(.btn)::after{content:"";position:absolute;left:0;bottom:-4px;width:0;height:2px;background:var(--secondary);transition:.25s}
 .nav-menu a:not(.btn):hover::after{width:100%}
 
 .menu-group{position:relative}
-.menu-group > span{cursor:default;color:var(--text)}
+.menu-trigger{border:0;background:transparent;color:var(--text);padding:0;font:inherit;cursor:pointer}
 .submenu{position:absolute;top:130%;left:0;min-width:190px;background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:8px;box-shadow:var(--shadow);display:none}
-.menu-group:hover .submenu{display:block}
+.menu-group:hover .submenu,.menu-group.open .submenu{display:block}
 .submenu a{display:block;padding:8px 10px;border-radius:8px}
 .submenu a:hover{background:#eff6ff}
+
+.menu-trigger::after{content:'▾';margin-left:6px;font-size:.8em;color:var(--muted)}
+.menu-group.open .menu-trigger::after{transform:rotate(180deg);display:inline-block}
 
 .nav-menu a,.read-more,.btn,.slider-btn,.pagination a{cursor:pointer}
 .nav-menu a,.read-more{background-size:0% 100%;background-repeat:no-repeat;background-position:0 100%;transition:background-size .28s ease,color .28s ease,transform .2s ease}
@@ -97,7 +100,7 @@ select,input,textarea{width:100%;padding:10px;border:1px solid var(--border);bor
 .login-msg{min-height:20px;margin:10px 0 0;color:#ef4444;font-size:.92rem}
 
 @media (max-width:900px){.grid-3{grid-template-columns:1fr 1fr}.slider .person{max-width:48%}.admin-layout{grid-template-columns:1fr}}
-@media (max-width:640px){.nav-wrap{flex-direction:column;align-items:flex-start;gap:10px}.grid-3,.grid-2{grid-template-columns:1fr}.slider .person{max-width:80%;min-width:220px}.hero h1{font-size:1.7rem}.submenu{position:static;display:block;border:none;box-shadow:none;padding:4px 0}.menu-group>span{display:block;margin-bottom:4px}}
+@media (max-width:640px){.nav-wrap{flex-direction:column;align-items:flex-start;gap:10px}.grid-3,.grid-2{grid-template-columns:1fr}.slider .person{max-width:80%;min-width:220px}.hero h1{font-size:1.7rem}.submenu{position:static;display:none;border:none;box-shadow:none;padding:4px 0}.menu-group.open .submenu{display:block}.menu-trigger{display:block;margin-bottom:4px}}
 
 
 /* Kegiatan editor */

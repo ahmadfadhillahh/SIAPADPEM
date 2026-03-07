@@ -58,7 +58,7 @@ $dokumen = getDokumen();
     <div class="nav-menu">
       <a href="#beranda">Beranda</a>
       <div class="menu-group">
-        <span>Profil</span>
+        <button type="button" class="menu-trigger" aria-expanded="false">Profil</button>
         <div class="submenu">
           <a href="#profil">Tupoksi</a>
           <a href="#profil">Struktur Organisasi</a>
@@ -66,7 +66,7 @@ $dokumen = getDokumen();
       </div>
       <a href="#layanan">Layanan</a>
       <div class="menu-group">
-        <span>Publikasi</span>
+        <button type="button" class="menu-trigger" aria-expanded="false">Publikasi</button>
         <div class="submenu">
           <a href="#publikasi">Kegiatan</a>
           <a href="#publikasi">Dokumen</a>

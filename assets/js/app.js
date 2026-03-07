@@ -173,3 +173,33 @@ if (editor && kontenInput && kegiatanForm) {
     kontenInput.value = editor.innerHTML;
   });
 }
+
+
+// Clickable sub-navbar dropdowns (desktop + mobile)
+const menuGroups = document.querySelectorAll('.menu-group');
+menuGroups.forEach((group) => {
+  const trigger = group.querySelector('.menu-trigger');
+  if (!trigger) return;
+
+  trigger.addEventListener('click', (e) => {
+    e.stopPropagation();
+    const willOpen = !group.classList.contains('open');
+    menuGroups.forEach((g) => {
+      g.classList.remove('open');
+      const t = g.querySelector('.menu-trigger');
+      t?.setAttribute('aria-expanded', 'false');
+    });
+    if (willOpen) {
+      group.classList.add('open');
+      trigger.setAttribute('aria-expanded', 'true');
+    }
+  });
+});
+
+document.addEventListener('click', () => {
+  menuGroups.forEach((g) => {
+    g.classList.remove('open');
+    const t = g.querySelector('.menu-trigger');
+    t?.setAttribute('aria-expanded', 'false');
+  });
+});
