@@ -178,7 +178,13 @@ $dokumen = getDokumen();
 
 <section id="layanan" class="section" style="background:#f8fafc">
   <div class="container">
-    <h2 id="simpera" class="section-title centered reveal">Layanan (SIMPERA) - Grafik Realisasi</h2>
+    <h2 id="simpera" class="section-title centered reveal">SIMPERA</h2>
+    <div class="card reveal simpera-intro">
+      <p><strong>SIMPERA</strong> adalah <strong>Sistem Informasi Pengendalian, Evaluasi dan Pelaporan Program Pembangunan Daerah</strong> yang digunakan untuk mendukung proses pemantauan, evaluasi, dan pelaporan pelaksanaan program pembangunan secara terukur dan transparan.</p>
+      <a class="btn" href="https://simppd-karimun.simda.net" target="_blank" rel="noopener noreferrer">Akses SIMPERA</a>
+    </div>
+
+    <h2 id="realisasi" class="section-title centered reveal" style="margin-top:24px">Realisasi Fisik dan Keuangan</h2>
     <form class="filters reveal" method="get">
       <input type="hidden" name="page" value="1">
       <div><label>OPD</label><select name="opd"><option value="">Semua OPD</option><?php foreach ($opds as $opd): ?><option value="<?= e($opd) ?>" <?= $filters['opd']===$opd?'selected':'' ?>><?= e($opd) ?></option><?php endforeach; ?></select></div>
@@ -186,7 +192,7 @@ $dokumen = getDokumen();
       <div><label>Triwulan</label><select name="triwulan"><option value="">Semua TW</option><?php foreach (['TW1','TW2','TW3','TW4'] as $tw): ?><option value="<?= $tw ?>" <?= $filters['triwulan']===$tw?'selected':'' ?>><?= $tw ?></option><?php endforeach; ?></select></div>
       <div style="align-self:end"><button class="btn" type="submit">Filter</button></div>
     </form>
-    <div id="realisasi" class="card reveal"><canvas id="chartLayanan" height="110"></canvas></div>
+    <div class="card reveal"><canvas id="chartLayanan" height="110"></canvas></div>
   </div>
 </section>
 

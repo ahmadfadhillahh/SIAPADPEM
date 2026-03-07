@@ -73,6 +73,8 @@ body.page-enter-active{opacity:1;transform:translateY(0);transition:opacity .55s
 .person img{width:100%;height:240px;object-fit:cover;border-radius:10px}.person h3{margin:10px 0 4px}.person p{margin:0;color:var(--muted)}
 
 .filters{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:16px}
+.simpera-intro{display:flex;flex-direction:column;gap:12px;align-items:flex-start}
+.simpera-intro p{margin:0;color:var(--text)}
 select,input,textarea{width:100%;padding:10px;border:1px solid var(--border);border-radius:10px;background:var(--surface);color:var(--text)}
 .table-wrap{overflow-x:auto}.table{width:100%;border-collapse:collapse}.table th,.table td{border:1px solid var(--border);padding:10px;text-align:left}
 
