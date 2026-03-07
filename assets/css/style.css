@@ -84,6 +84,8 @@ select,input,textarea{width:100%;padding:10px;border:1px solid var(--border);bor
 
 .pagination{display:flex;gap:8px;justify-content:center;margin-top:18px}
 .footer{background:linear-gradient(180deg,#f9fcff,#f2f8ff);border-top:1px solid var(--border);color:var(--muted);padding:40px 0;margin-top:40px}.footer h4{color:var(--text);margin-top:0}
+.site-footer-note{margin-top:16px;text-align:center;font-size:.9rem;color:#6b7280}
+.admin-footer{text-align:center;padding:12px 16px;background:#0f172a;color:#cbd5e1;font-size:.88rem}
 
 .article-hero{padding:42px 0 18px;background:linear-gradient(180deg,var(--surface-2),transparent)}
 .article-title{margin:0 0 8px;color:var(--text)}.article-meta{color:var(--muted)}

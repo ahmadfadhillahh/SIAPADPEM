@@ -258,6 +258,7 @@ $dokumen = getDokumen();
       <h4>🗺️ Peta Lokasi</h4>
       <iframe title="Peta Karimun" src="https://www.google.com/maps?q=Kabupaten%20Karimun&output=embed" loading="lazy"></iframe>
     </div>
+    <div class="site-footer-note">© <?= date('Y') ?> SIAPADPEM Kabupaten Karimun. Seluruh hak cipta dilindungi.</div>
   </div>
 </footer>
 
