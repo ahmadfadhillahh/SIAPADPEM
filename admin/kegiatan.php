@@ -36,29 +36,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $tgl = $_POST['tanggal_publikasi'] ?? date('Y-m-d');
 
     $img1 = uploadFile($_FILES['gambar'] ?? [], 'kegiatan');
-    $img2 = uploadFile($_FILES['gambar2'] ?? [], 'kegiatan');
-    $img3 = uploadFile($_FILES['gambar3'] ?? [], 'kegiatan');
 
     if ($id > 0) {
-        $stmt = $pdo->prepare('SELECT gambar_path, gambar_path_2, gambar_path_3 FROM publikasi_kegiatan WHERE id=?');
+        $stmt = $pdo->prepare('SELECT gambar_path FROM publikasi_kegiatan WHERE id=?');
         $stmt->execute([$id]);
-        $old = $stmt->fetch();
+        $old = $stmt->fetchColumn();
 
-        $path1 = $img1 ?: ($old['gambar_path'] ?? null);
-        $path2 = $img2 ?: ($old['gambar_path_2'] ?? null);
-        $path3 = $img3 ?: ($old['gambar_path_3'] ?? null);
+        $path1 = $img1 ?: $old;
 
-        $pdo->prepare('UPDATE publikasi_kegiatan SET judul=?, ringkasan=?, konten=?, penulis=?, tanggal_publikasi=?, gambar_path=?, gambar_path_2=?, gambar_path_3=? WHERE id=?')
-            ->execute([$judul, $ringkasan, $konten, $penulis, $tgl, $path1, $path2, $path3, $id]);
+        $pdo->prepare('UPDATE publikasi_kegiatan SET judul=?, ringkasan=?, konten=?, penulis=?, tanggal_publikasi=?, gambar_path=?, gambar_path_2=NULL, gambar_path_3=NULL WHERE id=?')
+            ->execute([$judul, $ringkasan, $konten, $penulis, $tgl, $path1, $id]);
 
-        if ($img1 && !empty($old['gambar_path'])) deleteUploadedFile($old['gambar_path']);
-        if ($img2 && !empty($old['gambar_path_2'])) deleteUploadedFile($old['gambar_path_2']);
-        if ($img3 && !empty($old['gambar_path_3'])) deleteUploadedFile($old['gambar_path_3']);
+        if ($img1 && !empty($old)) deleteUploadedFile($old);
 
         flash('success', 'Kegiatan diperbarui.');
     } else {
-        $pdo->prepare('INSERT INTO publikasi_kegiatan (judul, ringkasan, konten, penulis, tanggal_publikasi, gambar_path, gambar_path_2, gambar_path_3) VALUES (?,?,?,?,?,?,?,?)')
-            ->execute([$judul, $ringkasan, $konten, $penulis, $tgl, $img1, $img2, $img3]);
+        $pdo->prepare('INSERT INTO publikasi_kegiatan (judul, ringkasan, konten, penulis, tanggal_publikasi, gambar_path, gambar_path_2, gambar_path_3) VALUES (?,?,?,?,?,?,NULL,NULL)')
+            ->execute([$judul, $ringkasan, $konten, $penulis, $tgl, $img1]);
         flash('success', 'Kegiatan ditambahkan.');
     }
 
@@ -97,9 +91,7 @@ $rows = $pdo->query('SELECT * FROM publikasi_kegiatan ORDER BY tanggal_publikasi
       <div id="kontenEditor" class="editor-content" contenteditable="true"><?= $edit ? $edit['konten'] : '' ?></div>
       <textarea name="konten" id="kontenInput" style="display:none"></textarea>
 
-      <label>Gambar Utama</label><input type="file" name="gambar" accept="image/*">
-      <label>Gambar Tambahan 2</label><input type="file" name="gambar2" accept="image/*">
-      <label>Gambar Tambahan 3</label><input type="file" name="gambar3" accept="image/*">
+      <label>Gambar Utama (1 gambar)</label><input type="file" name="gambar" accept="image/*">
       <button class="btn" type="submit" style="margin-top:10px">Simpan</button>
     </form>
   </div>
