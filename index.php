@@ -133,10 +133,6 @@ $dokumen = getDokumen();
 
     <h2 class="section-title centered reveal" style="margin-top:30px">Struktur Organisasi - Pimpinan</h2>
     <div class="slider-shell reveal">
-      <div class="slider-controls">
-        <button type="button" class="slider-btn" data-slide="prev" data-target="strukturPimpinan" aria-label="Sebelumnya">‹</button>
-        <button type="button" class="slider-btn" data-slide="next" data-target="strukturPimpinan" aria-label="Selanjutnya">›</button>
-      </div>
       <div class="slider" id="strukturPimpinan" data-structure-slider>
         <?php foreach ($strukturPimpinan as $item): ?>
           <article class="card person">
@@ -147,14 +143,14 @@ $dokumen = getDokumen();
         <?php endforeach; ?>
         <?php if (!$strukturPimpinan): ?><p>Belum ada data pimpinan.</p><?php endif; ?>
       </div>
+      <div class="slider-controls bottom-controls">
+        <button type="button" class="slider-btn" data-slide="prev" data-target="strukturPimpinan" aria-label="Sebelumnya">‹</button>
+        <button type="button" class="slider-btn" data-slide="next" data-target="strukturPimpinan" aria-label="Selanjutnya">›</button>
+      </div>
     </div>
 
     <h2 class="section-title centered reveal" style="margin-top:22px">Struktur Organisasi - Staf</h2>
     <div class="slider-shell reveal">
-      <div class="slider-controls">
-        <button type="button" class="slider-btn" data-slide="prev" data-target="strukturStaf" aria-label="Sebelumnya">‹</button>
-        <button type="button" class="slider-btn" data-slide="next" data-target="strukturStaf" aria-label="Selanjutnya">›</button>
-      </div>
       <div class="slider" id="strukturStaf" data-structure-slider>
         <?php foreach ($strukturStaf as $item): ?>
           <article class="card person">
@@ -164,6 +160,10 @@ $dokumen = getDokumen();
           </article>
         <?php endforeach; ?>
         <?php if (!$strukturStaf): ?><p>Belum ada data staf.</p><?php endif; ?>
+      </div>
+      <div class="slider-controls bottom-controls">
+        <button type="button" class="slider-btn" data-slide="prev" data-target="strukturStaf" aria-label="Sebelumnya">‹</button>
+        <button type="button" class="slider-btn" data-slide="next" data-target="strukturStaf" aria-label="Selanjutnya">›</button>
       </div>
     </div>
   </div>
