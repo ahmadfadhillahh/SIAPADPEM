@@ -7,9 +7,8 @@
     <h3>Dashboard Admin</h3>
     <p><?= e($_SESSION['admin_name'] ?? 'Admin') ?></p>
     <a href="index.php">Ringkasan</a>
-    <a href="settings.php">Tupoksi</a>
     <a href="struktur.php">Struktur Organisasi</a>
-    <a href="layanan.php">Layanan SIMPERA</a>
+    <a href="layanan.php">Layanan Realisasi Fisik dan Keuangan</a>
     <a href="kegiatan.php">Publikasi Kegiatan</a>
     <a href="dokumen.php">Publikasi Dokumen</a>
     <a href="logout.php">Logout</a>

@@ -11,7 +11,7 @@ $counts = [
 <h1>Ringkasan Website</h1>
 <div class="grid grid-2">
   <div class="card"><h3>Struktur Organisasi</h3><p><?= $counts['struktur'] ?> data</p></div>
-  <div class="card"><h3>Layanan SIMPERA</h3><p><?= $counts['layanan'] ?> data</p></div>
+  <div class="card"><h3>Layanan Realisasi Fisik dan Keuangan</h3><p><?= $counts['layanan'] ?> data</p></div>
   <div class="card"><h3>Publikasi Kegiatan</h3><p><?= $counts['kegiatan'] ?> data</p></div>
   <div class="card"><h3>Publikasi Dokumen</h3><p><?= $counts['dokumen'] ?> data</p></div>
 </div>
