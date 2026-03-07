@@ -24,6 +24,34 @@ if (navbar) {
   });
 }
 
+// Responsive navbar toggle + submenu control
+const navToggle = document.querySelector('.nav-toggle');
+const navMenu = document.getElementById('navMenu');
+const menuGroups = document.querySelectorAll('.menu-group');
+
+navToggle?.addEventListener('click', () => {
+  const willOpen = !navMenu?.classList.contains('open');
+  navMenu?.classList.toggle('open', willOpen);
+  navToggle.setAttribute('aria-expanded', willOpen ? 'true' : 'false');
+});
+
+menuGroups.forEach((group) => {
+  const trigger = group.querySelector('.menu-trigger');
+  trigger?.addEventListener('click', () => {
+    if (window.innerWidth > 640) return;
+    group.classList.toggle('open');
+  });
+});
+
+document.querySelectorAll('.nav-menu a').forEach((link) => {
+  link.addEventListener('click', () => {
+    if (window.innerWidth > 640) return;
+    navMenu?.classList.remove('open');
+    navToggle?.setAttribute('aria-expanded', 'false');
+    menuGroups.forEach((group) => group.classList.remove('open'));
+  });
+});
+
 // Reveal effect on scroll
 const revealItems = document.querySelectorAll('.reveal');
 if (revealItems.length) {

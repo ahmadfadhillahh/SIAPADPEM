@@ -18,6 +18,7 @@ body.page-enter-active{opacity:1;transform:translateY(0);transition:opacity .55s
 .brand{font-weight:800;color:var(--primary);letter-spacing:.4px;display:flex;align-items:center;gap:10px}
 .brand img{width:44px;height:52px;object-fit:contain;filter:drop-shadow(0 2px 4px rgba(0,0,0,.2))}
 .brand span{line-height:1}
+.nav-toggle{display:none;border:1px solid var(--border);background:var(--surface);color:var(--text);font-size:1.3rem;border-radius:10px;padding:6px 10px}
 .nav-menu{display:flex;gap:14px;align-items:center;flex-wrap:wrap}
 .nav-menu a,.menu-group > span{font-weight:600;position:relative}
 .nav-menu a:not(.btn)::after{content:"";position:absolute;left:0;bottom:-4px;width:0;height:2px;background:var(--secondary);transition:.25s}
@@ -116,7 +117,21 @@ select,input,textarea{width:100%;padding:10px;border:1px solid var(--border);bor
 .pretty-list li{color:#1e293b}
 
 @media (max-width:900px){.grid-3{grid-template-columns:1fr 1fr}.slider .person{max-width:48%}.admin-layout{grid-template-columns:1fr}.hero-grid{grid-template-columns:1fr}.contact-grid{grid-template-columns:1fr 1fr}.hero{min-height:auto;padding:90px 0}}
-@media (max-width:640px){.nav-wrap{flex-direction:column;align-items:flex-start;gap:10px}.grid-3,.grid-2{grid-template-columns:1fr}.slider .person{max-width:80%;min-width:220px}.hero h1{font-size:2rem}.submenu{position:static;display:none;border:none;box-shadow:none;padding:4px 0}.submenu{display:block}.menu-group>span{display:block;margin-bottom:4px}.contact-grid{grid-template-columns:1fr}.map-card iframe{height:240px}}
+@media (max-width:640px){
+  .nav-wrap{flex-wrap:wrap;align-items:center;gap:10px}
+  .nav-toggle{display:inline-flex;align-items:center;justify-content:center;margin-left:auto}
+  .nav-menu{display:none;width:100%;flex-direction:column;align-items:flex-start;gap:10px;padding-top:4px}
+  .nav-menu.open{display:flex}
+  .menu-group{width:100%}
+  .menu-group>.menu-trigger{display:flex;justify-content:space-between;align-items:center;width:100%;cursor:pointer}
+  .submenu{position:static;display:none;border:none;box-shadow:none;padding:4px 0 0 10px;min-width:0}
+  .menu-group.open .submenu{display:block}
+  .grid-3,.grid-2{grid-template-columns:1fr}
+  .slider .person{max-width:80%;min-width:220px}
+  .hero h1{font-size:2rem}
+  .contact-grid{grid-template-columns:1fr}
+  .map-card iframe{height:240px}
+}
 
 
 /* Kegiatan editor */

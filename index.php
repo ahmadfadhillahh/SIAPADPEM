@@ -55,24 +55,31 @@ $dokumen = getDokumen();
 <nav class="navbar">
   <div class="container nav-wrap">
     <div class="brand"><img src="assets/img/logo-karimun.svg" alt="Logo Kabupaten Karimun"><span>SIAPADPEM</span></div>
-    <div class="nav-menu">
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="navMenu" aria-label="Buka menu navigasi">☰</button>
+    <div class="nav-menu" id="navMenu">
       <a href="#beranda">Beranda</a>
       <div class="menu-group">
         <span class="menu-trigger">Profil</span>
         <div class="submenu">
-          <a href="#profil">Tupoksi</a>
-          <a href="#profil">Struktur Organisasi</a>
+          <a href="#tupoksi">Tupoksi</a>
+          <a href="#struktur-organisasi">Struktur Organisasi</a>
         </div>
       </div>
-      <a href="#layanan">Layanan</a>
+      <div class="menu-group">
+        <span class="menu-trigger">Layanan</span>
+        <div class="submenu">
+          <a href="#simpera">SIMPERA</a>
+          <a href="#realisasi">Realisasi Fisik dan Keuangan</a>
+        </div>
+      </div>
       <div class="menu-group">
         <span class="menu-trigger">Publikasi</span>
         <div class="submenu">
-          <a href="#publikasi">Kegiatan</a>
-          <a href="#publikasi">Dokumen</a>
+          <a href="#publikasi-kegiatan">Kegiatan</a>
+          <a href="#publikasi-dokumen">Dokumen</a>
         </div>
       </div>
-      <a href="#kontak">Kontak</a>
+      <a href="#kontak">Hubungi Kami</a>
       <button type="button" class="btn" id="loginButton">Login Admin</button>
     </div>
   </div>
@@ -107,7 +114,7 @@ $dokumen = getDokumen();
 
 <section id="profil" class="section">
   <div class="container">
-    <h2 class="section-title centered reveal">Profil - Tupoksi</h2>
+    <h2 id="tupoksi" class="section-title centered reveal">Profil - Tupoksi</h2>
     <div class="tupoksi-layout reveal">
       <div class="card highlight-box">
         <h3>Tugas Pokok</h3>
@@ -131,7 +138,7 @@ $dokumen = getDokumen();
       </div>
     </div>
 
-    <h2 class="section-title centered reveal" style="margin-top:30px">Struktur Organisasi - Pimpinan</h2>
+    <h2 id="struktur-organisasi" class="section-title centered reveal" style="margin-top:30px">Struktur Organisasi - Pimpinan</h2>
     <div class="slider-shell reveal">
       <div class="slider" id="strukturPimpinan" data-structure-slider>
         <?php foreach ($strukturPimpinan as $item): ?>
@@ -171,7 +178,7 @@ $dokumen = getDokumen();
 
 <section id="layanan" class="section" style="background:#f8fafc">
   <div class="container">
-    <h2 class="section-title centered reveal">Layanan (SIMPERA) - Grafik Realisasi</h2>
+    <h2 id="simpera" class="section-title centered reveal">Layanan (SIMPERA) - Grafik Realisasi</h2>
     <form class="filters reveal" method="get">
       <input type="hidden" name="page" value="1">
       <div><label>OPD</label><select name="opd"><option value="">Semua OPD</option><?php foreach ($opds as $opd): ?><option value="<?= e($opd) ?>" <?= $filters['opd']===$opd?'selected':'' ?>><?= e($opd) ?></option><?php endforeach; ?></select></div>
@@ -179,13 +186,13 @@ $dokumen = getDokumen();
       <div><label>Triwulan</label><select name="triwulan"><option value="">Semua TW</option><?php foreach (['TW1','TW2','TW3','TW4'] as $tw): ?><option value="<?= $tw ?>" <?= $filters['triwulan']===$tw?'selected':'' ?>><?= $tw ?></option><?php endforeach; ?></select></div>
       <div style="align-self:end"><button class="btn" type="submit">Filter</button></div>
     </form>
-    <div class="card reveal"><canvas id="chartLayanan" height="110"></canvas></div>
+    <div id="realisasi" class="card reveal"><canvas id="chartLayanan" height="110"></canvas></div>
   </div>
 </section>
 
 <section id="publikasi" class="section">
   <div class="container">
-    <h2 class="section-title centered reveal">Publikasi Kegiatan</h2>
+    <h2 id="publikasi-kegiatan" class="section-title centered reveal">Publikasi Kegiatan</h2>
     <div class="grid grid-3">
       <?php foreach ($kegiatan as $item): ?>
       <article class="card pub-card reveal">
@@ -206,7 +213,7 @@ $dokumen = getDokumen();
       <?php endfor; ?>
     </div>
 
-    <h2 class="section-title centered reveal" style="margin-top:30px">Publikasi Dokumen</h2>
+    <h2 id="publikasi-dokumen" class="section-title centered reveal" style="margin-top:30px">Publikasi Dokumen</h2>
     <div class="table-wrap card reveal">
       <table class="table">
         <thead><tr><th>Judul</th><th>Tipe</th><th>Tanggal</th><th>Unduh</th></tr></thead>
