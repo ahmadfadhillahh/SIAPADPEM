@@ -199,7 +199,7 @@ $dokumen = getDokumen();
 <section id="publikasi" class="section">
   <div class="container">
     <h2 id="publikasi-kegiatan" class="section-title centered reveal">Publikasi Kegiatan</h2>
-    <div class="grid grid-3">
+    <div class="grid grid-3 kegiatan-grid">
       <?php foreach ($kegiatan as $item): ?>
       <article class="card pub-card reveal">
         <a href="kegiatan_detail.php?id=<?= (int) $item['id'] ?>" target="_blank" rel="noopener noreferrer">
