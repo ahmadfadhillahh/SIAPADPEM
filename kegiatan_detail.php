@@ -1,0 +1,93 @@
+<?php
+require_once __DIR__ . '/includes/public_data.php';
+
+$id = (int) ($_GET['id'] ?? 0);
+$berita = $id > 0 ? getKegiatanById($id) : null;
+?>
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <title><?= $berita ? e($berita['judul']) : 'Kegiatan tidak ditemukan' ?></title>
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+<nav class="navbar">
+  <div class="container nav-wrap">
+    <div class="brand"><img src="assets/img/logo-karimun.svg" alt="Logo Kabupaten Karimun"><span>SIAPADPEM</span></div>
+    <div class="nav-menu">
+      <a href="index.php#beranda">Beranda</a>
+      <a href="index.php#publikasi">Publikasi</a>
+      <button type="button" class="btn" id="loginButton">Login Admin</button>
+    </div>
+  </div>
+</nav>
+
+<?php if (!$berita): ?>
+<section class="section">
+  <div class="container">
+    <div class="card">
+      <h1 class="article-title">Berita tidak ditemukan</h1>
+      <p>Data kegiatan yang Anda cari tidak tersedia atau sudah dihapus.</p>
+      <a class="btn" href="index.php#publikasi">Kembali ke Publikasi</a>
+    </div>
+  </div>
+</section>
+<?php else: ?>
+<section class="article-hero">
+  <div class="container">
+    <a href="index.php#publikasi" class="read-more">← Kembali ke daftar kegiatan</a>
+    <h1 class="article-title"><?= e($berita['judul']) ?></h1>
+    <p class="article-meta"><?= e(date('d M Y', strtotime($berita['tanggal_publikasi']))) ?> • <?= e($berita['penulis']) ?></p>
+  </div>
+</section>
+
+<section class="section" style="padding-top:20px">
+  <div class="container">
+    <article class="card">
+      <img class="article-cover" src="<?= e($berita['gambar_path'] ?: 'https://placehold.co/1200x700?text=Kegiatan') ?>" alt="<?= e($berita['judul']) ?>">
+      <?php $gallery = array_values(array_filter([$berita['gambar_path'], $berita['gambar_path_2'] ?? null, $berita['gambar_path_3'] ?? null])); ?>
+      <?php if (count($gallery) > 1): ?>
+      <div class="article-gallery">
+        <?php foreach ($gallery as $img): ?>
+          <img src="<?= e($img) ?>" alt="Galeri kegiatan">
+        <?php endforeach; ?>
+      </div>
+      <?php endif; ?>
+      <p style="margin-top:20px;color:#64748b"><?= e($berita['ringkasan'] ?: '-') ?></p>
+      <div class="article-content"><?= $berita['konten'] ?: 'Konten berita belum tersedia.' ?></div>
+    </article>
+  </div>
+</section>
+<?php endif; ?>
+
+<footer class="footer">
+  <div class="container">
+    <p>© <?= date('Y') ?> SIAPADPEM</p>
+  </div>
+</footer>
+
+<div id="loginModal" class="login-modal" aria-hidden="true">
+  <div class="login-backdrop" data-close-login></div>
+  <div class="login-dialog" role="dialog" aria-modal="true" aria-labelledby="loginTitle">
+    <button type="button" class="login-close" data-close-login aria-label="Tutup">×</button>
+    <h3 id="loginTitle">Login Admin</h3>
+    <p class="login-sub">Masuk untuk mengelola konten website.</p>
+    <form id="loginForm">
+      <label>Username</label>
+      <input name="username" required>
+      <label>Password</label>
+      <input type="password" name="password" required>
+      <button class="btn" type="submit" style="width:100%;margin-top:12px">Masuk</button>
+      <p id="loginMsg" class="login-msg"></p>
+    </form>
+  </div>
+</div>
+
+<script src="assets/js/app.js"></script>
+</body>
+</html>

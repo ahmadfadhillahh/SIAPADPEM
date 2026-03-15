@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 140" role="img" aria-label="Logo Karimun">
+  <defs>
+    <linearGradient id="g" x1="0" x2="0" y1="0" y2="1">
+      <stop offset="0" stop-color="#f8ef3c"/>
+      <stop offset="1" stop-color="#f2e831"/>
+    </linearGradient>
+  </defs>
+  <polygon points="60,4 114,42 95,136 25,136 6,42" fill="url(#g)" stroke="#0a7f45" stroke-width="4"/>
+  <circle cx="60" cy="68" r="26" fill="#6ec1e4" stroke="#1f2937" stroke-width="3"/>
+  <path d="M38 72 L60 56 L82 72 L60 82 Z" fill="#e5e7eb" stroke="#64748b" stroke-width="1.5"/>
+  <rect x="41" y="110" width="38" height="6" rx="3" fill="#1f2937"/>
+</svg>
