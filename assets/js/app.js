@@ -39,7 +39,14 @@ menuGroups.forEach((group) => {
   const trigger = group.querySelector('.menu-trigger');
   trigger?.addEventListener('click', () => {
     if (window.innerWidth > 640) return;
-    group.classList.toggle('open');
+    const willOpen = !group.classList.contains('open');
+    menuGroups.forEach((item) => {
+      item.classList.remove('open');
+      const itemTrigger = item.querySelector('.menu-trigger');
+      itemTrigger?.setAttribute('aria-expanded', 'false');
+    });
+    group.classList.toggle('open', willOpen);
+    trigger.setAttribute('aria-expanded', willOpen ? 'true' : 'false');
   });
 });
 
@@ -48,9 +55,76 @@ document.querySelectorAll('.nav-menu a').forEach((link) => {
     if (window.innerWidth > 640) return;
     navMenu?.classList.remove('open');
     navToggle?.setAttribute('aria-expanded', 'false');
-    menuGroups.forEach((group) => group.classList.remove('open'));
+    menuGroups.forEach((group) => {
+      group.classList.remove('open');
+      const trigger = group.querySelector('.menu-trigger');
+      trigger?.setAttribute('aria-expanded', 'false');
+    });
   });
 });
+
+// Layanan chart + AJAX filter (no full page reload)
+const layananFilterForm = document.getElementById('layananFilterForm');
+const chartLayananEl = document.getElementById('chartLayanan');
+let layananChart = null;
+
+const renderLayananChart = (items) => {
+  if (!chartLayananEl || typeof Chart === 'undefined') return;
+  const labels = items.map((item) => `${item.opd} (${item.bulan}/${item.tahun})`);
+
+  if (!layananChart) {
+    layananChart = new Chart(chartLayananEl, {
+      type: 'bar',
+      data: {
+        labels: [],
+        datasets: [
+          { label: 'Realisasi Fisik (%)', data: [], backgroundColor: '#004a99' },
+          { label: 'Realisasi Keuangan (%)', data: [], backgroundColor: '#00a3d7' }
+        ]
+      },
+      options: { responsive: true, maintainAspectRatio: false }
+    });
+  }
+
+  layananChart.data.labels = labels;
+  layananChart.data.datasets[0].data = items.map((item) => Number(item.realisasi_fisik || 0));
+  layananChart.data.datasets[1].data = items.map((item) => Number(item.realisasi_keuangan || 0));
+  layananChart.update();
+};
+
+const initialLayananData = Array.isArray(window.initialLayananData) ? window.initialLayananData : [];
+if (chartLayananEl) {
+  renderLayananChart(initialLayananData);
+}
+
+if (layananFilterForm) {
+  const requestLayananData = async () => {
+    const params = new URLSearchParams(new FormData(layananFilterForm));
+    params.delete('page');
+
+    try {
+      const res = await fetch(`layanan_data.php?${params.toString()}`, {
+        headers: { 'X-Requested-With': 'XMLHttpRequest' }
+      });
+      const payload = await res.json();
+      if (!res.ok || !payload.ok || !Array.isArray(payload.data)) return;
+      renderLayananChart(payload.data);
+    } catch (err) {
+      // Keep current chart data on network error.
+    }
+  };
+
+  layananFilterForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    await requestLayananData();
+  });
+
+  layananFilterForm.querySelectorAll('select').forEach((field) => {
+    field.addEventListener('change', () => {
+      requestLayananData();
+    });
+  });
+}
 
 // Reveal effect on scroll
 const revealItems = document.querySelectorAll('.reveal');
@@ -97,50 +171,6 @@ sliders.forEach((slider) => {
   slider.addEventListener('mouseleave', () => {
     autoSlide = setInterval(slideRight, 4500);
   });
-});
-
-// Login modal on-click (without navigating to login.php page)
-const loginButton = document.getElementById('loginButton');
-const loginModal = document.getElementById('loginModal');
-const loginForm = document.getElementById('loginForm');
-const loginMsg = document.getElementById('loginMsg');
-
-const toggleLoginModal = (show) => {
-  if (!loginModal) return;
-  loginModal.classList.toggle('show', show);
-  loginModal.setAttribute('aria-hidden', show ? 'false' : 'true');
-};
-
-loginButton?.addEventListener('click', () => {
-  toggleLoginModal(true);
-});
-
-document.querySelectorAll('[data-close-login]').forEach((el) => {
-  el.addEventListener('click', () => toggleLoginModal(false));
-});
-
-loginForm?.addEventListener('submit', async (e) => {
-  e.preventDefault();
-  if (loginMsg) loginMsg.textContent = 'Memproses login...';
-
-  try {
-    const formData = new FormData(loginForm);
-    const res = await fetch('admin/login_action.php', {
-      method: 'POST',
-      body: formData,
-      headers: { 'X-Requested-With': 'XMLHttpRequest' }
-    });
-
-    const data = await res.json();
-    if (!res.ok || !data.ok) {
-      if (loginMsg) loginMsg.textContent = data.message || 'Login gagal';
-      return;
-    }
-
-    window.location.href = data.redirect || 'admin/index.php';
-  } catch (err) {
-    if (loginMsg) loginMsg.textContent = 'Terjadi kesalahan koneksi';
-  }
 });
 
 // Protected document download flow
