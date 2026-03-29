@@ -95,22 +95,6 @@ $dokumen = getDokumen();
       <p><?= e($heroSubtitle) ?></p>
       <p class="hero-desc">Sistem Informasi Administrasi Pembangunan dengan nuansa pelayanan modern, transparan, dan semangat kearifan lokal Melayu Karimun.</p>
     </div>
-    <div class="hero-right">
-      <div class="leader-card">
-        <div class="leader-photo">Foto Bupati</div>
-        <div>
-          <h3>Bupati Karimun</h3>
-          <p>Ruang profil pimpinan daerah</p>
-        </div>
-      </div>
-      <div class="leader-card">
-        <div class="leader-photo">Foto Wakil Bupati</div>
-        <div>
-          <h3>Wakil Bupati Karimun</h3>
-          <p>Ruang profil wakil pimpinan daerah</p>
-        </div>
-      </div>
-    </div>
   </div>
 </section>
 
