@@ -117,12 +117,13 @@ $dokumen = getDokumen();
 <section id="profil" class="section">
   <div class="container">
     <h2 id="tupoksi" class="section-title centered reveal">Profil - Tupoksi</h2>
+    <p class="section-intro centered reveal">Rangkuman tugas pokok, uraian tugas, dan fungsi Bagian Administrasi Pembangunan Kabupaten Karimun.</p>
     <div class="tupoksi-layout reveal">
-      <div class="card highlight-box">
+      <div class="card highlight-box tupoksi-card">
         <h3>Tugas Pokok</h3>
         <p><?= e($tupoksiIntro) ?></p>
       </div>
-      <div class="card">
+      <div class="card tupoksi-card">
         <h3>Uraian Tugas</h3>
         <ul class="pretty-list">
           <?php foreach ($uraianTugas as $item): ?>
@@ -130,7 +131,7 @@ $dokumen = getDokumen();
           <?php endforeach; ?>
         </ul>
       </div>
-      <div class="card">
+      <div class="card tupoksi-card">
         <h3>Uraian Fungsi</h3>
         <ul class="pretty-list">
           <?php foreach ($uraianFungsi as $item): ?>
