@@ -74,9 +74,9 @@ body.page-enter-active{opacity:1;transform:translateY(0);transition:opacity .55s
 
 .filters{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:16px}
 .simpera-intro{padding:22px}
-.simpera-showcase{display:grid;grid-template-columns:220px 1fr;align-items:center;gap:18px}
+.simpera-showcase{display:grid;grid-template-columns:minmax(280px,420px) 1fr;align-items:center;gap:18px}
 .simpera-logo-wrap{display:flex;justify-content:center;align-items:center;background:linear-gradient(140deg,#f8fbff,#eaf3ff);border:1px solid var(--border);border-radius:14px;padding:14px}
-.simpera-logo{width:min(180px,100%);height:auto;object-fit:contain}
+.simpera-logo{width:min(420px,100%);height:auto;object-fit:contain}
 .simpera-content{display:flex;flex-direction:column;gap:10px;align-items:flex-start}
 .simpera-content h3{margin:0;font-size:2rem;line-height:1;color:var(--accent);letter-spacing:.8px}
 .simpera-content p{margin:0;color:var(--text);max-width:760px}
@@ -148,7 +148,7 @@ select,input,textarea{width:100%;padding:10px;border:1px solid var(--border);bor
   .contact-grid{grid-template-columns:1fr}
   .map-card iframe{height:240px}
   .simpera-showcase{grid-template-columns:1fr;gap:14px}
-  .simpera-logo{width:min(150px,100%)}
+  .simpera-logo{width:min(360px,100%)}
   .simpera-content h3{font-size:1.75rem}
 }
 

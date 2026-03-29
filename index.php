@@ -184,7 +184,7 @@ $dokumen = getDokumen();
     <div class="card reveal simpera-intro">
       <div class="simpera-showcase">
         <div class="simpera-logo-wrap">
-          <img src="assets/img/logo-karimun.svg" alt="Logo Kabupaten Karimun untuk SIMPERA" class="simpera-logo">
+          <img src="assets/img/logo-simpera.svg" alt="Logo SIMPERA Kabupaten Karimun" class="simpera-logo">
         </div>
         <div class="simpera-content">
           <h3>SIMPERA</h3>
