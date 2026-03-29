@@ -83,7 +83,6 @@ $dokumen = getDokumen();
         </div>
       </div>
       <a href="#kontak">Hubungi Kami</a>
-      <button type="button" class="btn" id="loginButton">Login Admin</button>
     </div>
   </div>
 </nav>
@@ -272,23 +271,6 @@ $dokumen = getDokumen();
     <div class="site-footer-note">© <?= date('Y') ?> SIAPADPEM Kabupaten Karimun. Seluruh hak cipta dilindungi.</div>
   </div>
 </footer>
-
-<div id="loginModal" class="login-modal" aria-hidden="true">
-  <div class="login-backdrop" data-close-login></div>
-  <div class="login-dialog" role="dialog" aria-modal="true" aria-labelledby="loginTitle">
-    <button type="button" class="login-close" data-close-login aria-label="Tutup">×</button>
-    <h3 id="loginTitle">Login Admin</h3>
-    <p class="login-sub">Masuk untuk mengelola konten website.</p>
-    <form id="loginForm">
-      <label>Username</label>
-      <input name="username" required>
-      <label>Password</label>
-      <input type="password" name="password" required>
-      <button class="btn" type="submit" style="width:100%;margin-top:12px">Masuk</button>
-      <p id="loginMsg" class="login-msg"></p>
-    </form>
-  </div>
-</div>
 
 <script>
 window.initialLayananData = <?= json_encode($layanan) ?>;

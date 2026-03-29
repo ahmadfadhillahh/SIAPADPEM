@@ -24,11 +24,11 @@ body.page-enter-active{opacity:1;transform:translateY(0);transition:opacity .55s
 .nav-menu a:not(.btn)::after{content:"";position:absolute;left:0;bottom:-4px;width:0;height:2px;background:var(--secondary);transition:.25s}
 .nav-menu a:not(.btn):hover::after{width:100%}
 
-.menu-group{position:relative;padding-bottom:6px;display:flex;align-items:center;gap:4px}
-.menu-parent{color:var(--text)}
-.menu-trigger{border:0;background:transparent;color:var(--muted);font-size:.9rem;line-height:1;cursor:pointer;padding:4px;border-radius:6px}
+.menu-group{position:relative;display:flex;align-items:center;gap:2px}
+.menu-parent{color:var(--text);display:inline-flex;align-items:center;height:36px;padding:0 2px}
+.menu-trigger{border:0;background:transparent;color:var(--muted);font-size:.9rem;line-height:1;cursor:pointer;padding:0 4px;height:36px;display:inline-flex;align-items:center;border-radius:6px}
 .menu-trigger:hover{background:#edf5ff;color:var(--text)}
-.submenu{position:absolute;top:100%;left:0;min-width:190px;background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:8px;box-shadow:var(--shadow);display:none;z-index:1200}
+.submenu{position:absolute;top:calc(100% + 2px);left:0;min-width:190px;background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:8px;box-shadow:var(--shadow);display:none;z-index:1200}
 .menu-group:hover .submenu,.menu-group:focus-within .submenu,.menu-group.open .submenu{display:block}
 .submenu a{display:block;padding:8px 10px;border-radius:8px}
 .submenu a:hover{background:#edf5ff}
@@ -137,7 +137,7 @@ select,input,textarea{width:100%;padding:10px;border:1px solid var(--border);bor
   .menu-group{width:100%;padding-bottom:0}
   .menu-group{display:grid;grid-template-columns:1fr auto;align-items:center;gap:6px}
   .menu-group>.menu-trigger{display:flex;justify-content:center;align-items:center;cursor:pointer}
-  .menu-parent{display:block}
+  .menu-parent{display:block;height:auto;padding:0}
   .submenu{position:static;display:none;border:none;box-shadow:none;padding:4px 0 0 10px;min-width:0}
   .menu-group:hover .submenu,.menu-group:focus-within .submenu{display:none}
   .menu-group.open .submenu{display:block}

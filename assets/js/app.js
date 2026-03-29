@@ -173,50 +173,6 @@ sliders.forEach((slider) => {
   });
 });
 
-// Login modal on-click (without navigating to login.php page)
-const loginButton = document.getElementById('loginButton');
-const loginModal = document.getElementById('loginModal');
-const loginForm = document.getElementById('loginForm');
-const loginMsg = document.getElementById('loginMsg');
-
-const toggleLoginModal = (show) => {
-  if (!loginModal) return;
-  loginModal.classList.toggle('show', show);
-  loginModal.setAttribute('aria-hidden', show ? 'false' : 'true');
-};
-
-loginButton?.addEventListener('click', () => {
-  toggleLoginModal(true);
-});
-
-document.querySelectorAll('[data-close-login]').forEach((el) => {
-  el.addEventListener('click', () => toggleLoginModal(false));
-});
-
-loginForm?.addEventListener('submit', async (e) => {
-  e.preventDefault();
-  if (loginMsg) loginMsg.textContent = 'Memproses login...';
-
-  try {
-    const formData = new FormData(loginForm);
-    const res = await fetch('admin/login_action.php', {
-      method: 'POST',
-      body: formData,
-      headers: { 'X-Requested-With': 'XMLHttpRequest' }
-    });
-
-    const data = await res.json();
-    if (!res.ok || !data.ok) {
-      if (loginMsg) loginMsg.textContent = data.message || 'Login gagal';
-      return;
-    }
-
-    window.location.href = data.redirect || 'admin/index.php';
-  } catch (err) {
-    if (loginMsg) loginMsg.textContent = 'Terjadi kesalahan koneksi';
-  }
-});
-
 // Protected document download flow
 const protectedDocButtons = document.querySelectorAll('.btn-protected-doc');
 protectedDocButtons.forEach((btn) => {
