@@ -46,7 +46,7 @@ $dokumen = getDokumen();
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Sora:wght@600;700;800&display=swap" rel="stylesheet">
   <title>SIAPADPEM</title>
   <link rel="stylesheet" href="assets/css/style.css">
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -59,28 +59,30 @@ $dokumen = getDokumen();
     <div class="nav-menu" id="navMenu">
       <a href="#beranda">Beranda</a>
       <div class="menu-group">
-        <span class="menu-trigger">Profil</span>
+        <a href="#profil" class="menu-parent">Profil</a>
+        <button type="button" class="menu-trigger" aria-expanded="false" aria-label="Buka submenu Profil">▾</button>
         <div class="submenu">
           <a href="#tupoksi">Tupoksi</a>
           <a href="#struktur-organisasi">Struktur Organisasi</a>
         </div>
       </div>
       <div class="menu-group">
-        <span class="menu-trigger">Layanan</span>
+        <a href="#layanan" class="menu-parent">Layanan</a>
+        <button type="button" class="menu-trigger" aria-expanded="false" aria-label="Buka submenu Layanan">▾</button>
         <div class="submenu">
           <a href="#simpera">SIMPERA</a>
           <a href="#realisasi">Realisasi Fisik dan Keuangan</a>
         </div>
       </div>
       <div class="menu-group">
-        <span class="menu-trigger">Publikasi</span>
+        <a href="#publikasi" class="menu-parent">Publikasi</a>
+        <button type="button" class="menu-trigger" aria-expanded="false" aria-label="Buka submenu Publikasi">▾</button>
         <div class="submenu">
           <a href="#publikasi-kegiatan">Kegiatan</a>
           <a href="#publikasi-dokumen">Dokumen</a>
         </div>
       </div>
       <a href="#kontak">Hubungi Kami</a>
-      <button type="button" class="btn" id="loginButton">Login Admin</button>
     </div>
   </div>
 </nav>
@@ -89,25 +91,9 @@ $dokumen = getDokumen();
   <div class="container hero-grid reveal">
     <div class="hero-left">
       <span class="hero-badge">Portal Resmi Pemerintah Daerah</span>
-      <h1><span>SIAP</span> <span>ADPEM</span></h1>
+      <h1 class="hero-brand-title"><span>SIAP</span> <span>ADPEM</span></h1>
       <p><?= e($heroSubtitle) ?></p>
-      <p class="hero-desc">Sistem Informasi Administrasi Pembangunan dengan nuansa pelayanan modern, transparan, dan semangat kearifan lokal Melayu Karimun.</p>
-    </div>
-    <div class="hero-right">
-      <div class="leader-card">
-        <div class="leader-photo">Foto Bupati</div>
-        <div>
-          <h3>Bupati Karimun</h3>
-          <p>Ruang profil pimpinan daerah</p>
-        </div>
-      </div>
-      <div class="leader-card">
-        <div class="leader-photo">Foto Wakil Bupati</div>
-        <div>
-          <h3>Wakil Bupati Karimun</h3>
-          <p>Ruang profil wakil pimpinan daerah</p>
-        </div>
-      </div>
+      <p class="hero-desc">Sistem Informasi Dan Akses Publik Administrasi Pembangunan.</p>
     </div>
   </div>
 </section>
@@ -115,12 +101,13 @@ $dokumen = getDokumen();
 <section id="profil" class="section">
   <div class="container">
     <h2 id="tupoksi" class="section-title centered reveal">Profil - Tupoksi</h2>
+    <p class="section-intro centered reveal">Rangkuman tugas pokok, uraian tugas, dan fungsi Bagian Administrasi Pembangunan Kabupaten Karimun.</p>
     <div class="tupoksi-layout reveal">
-      <div class="card highlight-box">
+      <div class="card highlight-box tupoksi-card">
         <h3>Tugas Pokok</h3>
         <p><?= e($tupoksiIntro) ?></p>
       </div>
-      <div class="card">
+      <div class="card tupoksi-card">
         <h3>Uraian Tugas</h3>
         <ul class="pretty-list">
           <?php foreach ($uraianTugas as $item): ?>
@@ -128,7 +115,7 @@ $dokumen = getDokumen();
           <?php endforeach; ?>
         </ul>
       </div>
-      <div class="card">
+      <div class="card tupoksi-card">
         <h3>Uraian Fungsi</h3>
         <ul class="pretty-list">
           <?php foreach ($uraianFungsi as $item): ?>
@@ -180,12 +167,20 @@ $dokumen = getDokumen();
   <div class="container">
     <h2 id="simpera" class="section-title centered reveal">SIMPERA</h2>
     <div class="card reveal simpera-intro">
-      <p><strong>SIMPERA</strong> adalah <strong>Sistem Informasi Pengendalian, Evaluasi dan Pelaporan Program Pembangunan Daerah</strong> yang digunakan untuk mendukung proses pemantauan, evaluasi, dan pelaporan pelaksanaan program pembangunan secara terukur dan transparan.</p>
-      <a class="btn" href="https://simppd-karimun.simda.net" target="_blank" rel="noopener noreferrer">Akses SIMPERA</a>
+      <div class="simpera-showcase">
+        <div class="simpera-logo-wrap">
+          <img src="assets/img/logo-simpera.svg" alt="Logo SIMPERA Kabupaten Karimun" class="simpera-logo">
+        </div>
+        <div class="simpera-content">
+          <h3>SIMPERA</h3>
+          <p><strong>Sistem Informasi Pengendalian, Evaluasi dan Pelaporan Program Pembangunan Daerah</strong> untuk mendukung pemantauan, evaluasi, dan pelaporan program pembangunan secara terukur, akuntabel, dan transparan.</p>
+          <a class="btn" href="https://simppd-karimun.simda.net" target="_blank" rel="noopener noreferrer">Akses Web SIMPERA</a>
+        </div>
+      </div>
     </div>
 
     <h2 id="realisasi" class="section-title centered reveal" style="margin-top:24px">Realisasi Fisik dan Keuangan</h2>
-    <form class="filters reveal" method="get">
+    <form class="filters reveal" id="layananFilterForm" method="get">
       <input type="hidden" name="page" value="1">
       <div><label>OPD</label><select name="opd"><option value="">Semua OPD</option><?php foreach ($opds as $opd): ?><option value="<?= e($opd) ?>" <?= $filters['opd']===$opd?'selected':'' ?>><?= e($opd) ?></option><?php endforeach; ?></select></div>
       <div><label>Bulan</label><select name="bulan"><option value="">Semua Bulan</option><?php for($i=1;$i<=12;$i++): ?><option value="<?= $i ?>" <?= (string)$filters['bulan']===(string)$i?'selected':'' ?>><?= $i ?></option><?php endfor; ?></select></div>
@@ -262,40 +257,8 @@ $dokumen = getDokumen();
   </div>
 </footer>
 
-<div id="loginModal" class="login-modal" aria-hidden="true">
-  <div class="login-backdrop" data-close-login></div>
-  <div class="login-dialog" role="dialog" aria-modal="true" aria-labelledby="loginTitle">
-    <button type="button" class="login-close" data-close-login aria-label="Tutup">×</button>
-    <h3 id="loginTitle">Login Admin</h3>
-    <p class="login-sub">Masuk untuk mengelola konten website.</p>
-    <form id="loginForm">
-      <label>Username</label>
-      <input name="username" required>
-      <label>Password</label>
-      <input type="password" name="password" required>
-      <button class="btn" type="submit" style="width:100%;margin-top:12px">Masuk</button>
-      <p id="loginMsg" class="login-msg"></p>
-    </form>
-  </div>
-</div>
-
 <script>
-const layananData = <?= json_encode($layanan) ?>;
-const chartEl = document.getElementById('chartLayanan');
-if (chartEl && layananData.length) {
-  const labels = layananData.map(item => `${item.opd} (${item.bulan}/${item.tahun})`);
-  new Chart(chartEl, {
-    type: 'bar',
-    data: {
-      labels,
-      datasets: [
-        { label: 'Realisasi Fisik (%)', data: layananData.map(item => item.realisasi_fisik), backgroundColor: '#004a99' },
-        { label: 'Realisasi Keuangan (%)', data: layananData.map(item => item.realisasi_keuangan), backgroundColor: '#00a3d7' }
-      ]
-    },
-    options: { responsive: true, maintainAspectRatio: false }
-  });
-}
+window.initialLayananData = <?= json_encode($layanan) ?>;
 </script>
 <script src="assets/js/app.js"></script>
 </body>
