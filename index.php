@@ -59,21 +59,24 @@ $dokumen = getDokumen();
     <div class="nav-menu" id="navMenu">
       <a href="#beranda">Beranda</a>
       <div class="menu-group">
-        <span class="menu-trigger">Profil</span>
+        <a href="#profil" class="menu-parent">Profil</a>
+        <button type="button" class="menu-trigger" aria-expanded="false" aria-label="Buka submenu Profil">▾</button>
         <div class="submenu">
           <a href="#tupoksi">Tupoksi</a>
           <a href="#struktur-organisasi">Struktur Organisasi</a>
         </div>
       </div>
       <div class="menu-group">
-        <span class="menu-trigger">Layanan</span>
+        <a href="#layanan" class="menu-parent">Layanan</a>
+        <button type="button" class="menu-trigger" aria-expanded="false" aria-label="Buka submenu Layanan">▾</button>
         <div class="submenu">
           <a href="#simpera">SIMPERA</a>
           <a href="#realisasi">Realisasi Fisik dan Keuangan</a>
         </div>
       </div>
       <div class="menu-group">
-        <span class="menu-trigger">Publikasi</span>
+        <a href="#publikasi" class="menu-parent">Publikasi</a>
+        <button type="button" class="menu-trigger" aria-expanded="false" aria-label="Buka submenu Publikasi">▾</button>
         <div class="submenu">
           <a href="#publikasi-kegiatan">Kegiatan</a>
           <a href="#publikasi-dokumen">Dokumen</a>
@@ -180,12 +183,20 @@ $dokumen = getDokumen();
   <div class="container">
     <h2 id="simpera" class="section-title centered reveal">SIMPERA</h2>
     <div class="card reveal simpera-intro">
-      <p><strong>SIMPERA</strong> adalah <strong>Sistem Informasi Pengendalian, Evaluasi dan Pelaporan Program Pembangunan Daerah</strong> yang digunakan untuk mendukung proses pemantauan, evaluasi, dan pelaporan pelaksanaan program pembangunan secara terukur dan transparan.</p>
-      <a class="btn" href="https://simppd-karimun.simda.net" target="_blank" rel="noopener noreferrer">Akses SIMPERA</a>
+      <div class="simpera-showcase">
+        <div class="simpera-logo-wrap">
+          <img src="assets/img/logo-karimun.svg" alt="Logo Kabupaten Karimun untuk SIMPERA" class="simpera-logo">
+        </div>
+        <div class="simpera-content">
+          <h3>SIMPERA</h3>
+          <p><strong>Sistem Informasi Pengendalian, Evaluasi dan Pelaporan Program Pembangunan Daerah</strong> untuk mendukung pemantauan, evaluasi, dan pelaporan program pembangunan secara terukur, akuntabel, dan transparan.</p>
+          <a class="btn" href="https://simppd-karimun.simda.net" target="_blank" rel="noopener noreferrer">Akses Web SIMPERA</a>
+        </div>
+      </div>
     </div>
 
     <h2 id="realisasi" class="section-title centered reveal" style="margin-top:24px">Realisasi Fisik dan Keuangan</h2>
-    <form class="filters reveal" method="get">
+    <form class="filters reveal" id="layananFilterForm" method="get">
       <input type="hidden" name="page" value="1">
       <div><label>OPD</label><select name="opd"><option value="">Semua OPD</option><?php foreach ($opds as $opd): ?><option value="<?= e($opd) ?>" <?= $filters['opd']===$opd?'selected':'' ?>><?= e($opd) ?></option><?php endforeach; ?></select></div>
       <div><label>Bulan</label><select name="bulan"><option value="">Semua Bulan</option><?php for($i=1;$i<=12;$i++): ?><option value="<?= $i ?>" <?= (string)$filters['bulan']===(string)$i?'selected':'' ?>><?= $i ?></option><?php endfor; ?></select></div>
@@ -280,22 +291,7 @@ $dokumen = getDokumen();
 </div>
 
 <script>
-const layananData = <?= json_encode($layanan) ?>;
-const chartEl = document.getElementById('chartLayanan');
-if (chartEl && layananData.length) {
-  const labels = layananData.map(item => `${item.opd} (${item.bulan}/${item.tahun})`);
-  new Chart(chartEl, {
-    type: 'bar',
-    data: {
-      labels,
-      datasets: [
-        { label: 'Realisasi Fisik (%)', data: layananData.map(item => item.realisasi_fisik), backgroundColor: '#004a99' },
-        { label: 'Realisasi Keuangan (%)', data: layananData.map(item => item.realisasi_keuangan), backgroundColor: '#00a3d7' }
-      ]
-    },
-    options: { responsive: true, maintainAspectRatio: false }
-  });
-}
+window.initialLayananData = <?= json_encode($layanan) ?>;
 </script>
 <script src="assets/js/app.js"></script>
 </body>
