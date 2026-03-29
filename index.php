@@ -46,7 +46,7 @@ $dokumen = getDokumen();
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Sora:wght@600;700;800&display=swap" rel="stylesheet">
   <title>SIAPADPEM</title>
   <link rel="stylesheet" href="assets/css/style.css">
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -91,9 +91,9 @@ $dokumen = getDokumen();
   <div class="container hero-grid reveal">
     <div class="hero-left">
       <span class="hero-badge">Portal Resmi Pemerintah Daerah</span>
-      <h1><span>SIAP</span> <span>ADPEM</span></h1>
+      <h1 class="hero-brand-title"><span>SIAP</span> <span>ADPEM</span></h1>
       <p><?= e($heroSubtitle) ?></p>
-      <p class="hero-desc">Sistem Informasi Administrasi Pembangunan dengan nuansa pelayanan modern, transparan, dan semangat kearifan lokal Melayu Karimun.</p>
+      <p class="hero-desc">Sistem Informasi Dan Akses Publik Administrasi Pembangunan.</p>
     </div>
   </div>
 </section>
